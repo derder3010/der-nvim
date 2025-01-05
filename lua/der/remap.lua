@@ -1,6 +1,7 @@
 vim.g.mapleader = " "
 vim.keymap.set("n", "<leader><space>", vim.cmd.Ex)
 vim.keymap.set("n", "<leader>l", "<cmd>Lazy<cr>")
+vim.keymap.set("n", "<leader>m", "<cmd>Mason<cr>")
 vim.keymap.set('n', '<leader>/', function()
     vim.cmd('normal gcc')
 end)

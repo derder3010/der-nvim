@@ -26,3 +26,5 @@ vim.opt.scrolloff = 8
 
 vim.opt.updatetime = 50
 vim.o.showmode = false
+
+vim.o.sessionoptions="blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions"
