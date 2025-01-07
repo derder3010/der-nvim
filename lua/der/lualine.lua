@@ -93,12 +93,12 @@ ins_left {
         ['i'] = 'INS',
         ['v'] = 'VIS',
         ['V'] = 'V-L',
-        [''] = 'V-B', -- This is Ctrl-V
+        [''] = 'V-B', -- This is Ctrl-V
         ['c'] = 'CMD',
         ['R'] = 'REP',
         ['s'] = 'SEL',
         ['S'] = 'S-L',
-        [''] = 'S-B', -- This is Ctrl-S
+        [''] = 'S-B', -- This is Ctrl-S
         ['t'] = 'TER',
     }
 
@@ -148,12 +148,20 @@ ins_left {
 
 ins_left { 'location' }
 
-ins_left { 'progress', color = { fg = colors.fg, gui = 'bold' } }
+ins_left {
+    -- 'progress',
+    "progress",
+    fmt = function()
+      return "%P/%L"
+    end,
+    color = { fg = colors.fg, gui = 'bold' }
+}
 
 ins_left {
   'diagnostics',
   sources = { 'nvim_diagnostic' },
-  symbols = { error = ' ', warn = ' ', info = ' ' },
+  -- symbols = { error = ' ', warn = ' ', info = ' ' },
+  symbols = { error = 'E ', warn = 'W ', info = 'I ' },
   diagnostics_color = {
     error = { fg = colors.red },
     warn = { fg = colors.yellow },
@@ -163,13 +171,13 @@ ins_left {
 
 -- Insert mid section. You can make any number of sections in neovim :)
 -- for lualine it's any number greater then 2
-ins_left {
-  function()
-    return '%='
-  end,
-}
+-- ins_left {
+--   function()
+--     return '%='
+--   end,
+-- }
 
-ins_left {
+ins_right {
   -- Lsp server name .
   function()
     local msg = 'No Active Lsp'
@@ -186,7 +194,8 @@ ins_left {
     end
     return msg
   end,
-  icon = ' LSP:',
+  -- icon = ' LSP:',
+  icon = 'LSP:',
   color = { fg = '#ffffff', gui = 'bold' },
 }
 
@@ -207,14 +216,19 @@ ins_right {
 
 ins_right {
   'branch',
-  icon = '',
+  fmt = function(str)
+    return '‹' .. str .. '›'
+  end,
+  -- icon = '',
+  icon = '',
   color = { fg = colors.violet, gui = 'bold' },
 }
 
 ins_right {
   'diff',
   -- Is it me or the symbol for modified us really weird
-  symbols = { added = ' ', modified = '󰝤 ', removed = ' ' },
+  -- symbols = { added = ' ', modified = '󰝤 ', removed = ' ' },
+  symbols = { added = '+', modified = '~', removed = '-' },
   diff_color = {
     added = { fg = colors.green },
     modified = { fg = colors.orange },

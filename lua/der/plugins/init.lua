@@ -1,18 +1,13 @@
 return {
-    "eandrju/cellular-automaton.nvim",
-
     'nvim-lua/plenary.nvim',
-
     {
         'windwp/nvim-autopairs',
         event = "InsertEnter",
         config = true
     },
-
+  	{ 'echasnovski/mini.starter', version = '*' },
     {
-    "nvim-lualine/lualine.nvim",
-  	},
-
-  	{ 'echasnovski/mini.nvim', version = '*' },
+      'nvim-lualine/lualine.nvim',
+    }
 }
 

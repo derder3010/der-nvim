@@ -19,7 +19,7 @@ vim.opt.rtp:prepend(lazypath)
 require("lazy").setup({
     spec = "der.plugins",
     -- colorscheme that will be used when installing plugins.
-    install = { colorscheme = { "rose-pine-moon" } },
+    install = { colorscheme = { "rose-pine-mon" } },
     -- automatically check for plugin updates
     checker = { enabled = true },
 })

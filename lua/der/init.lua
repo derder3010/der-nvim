@@ -2,14 +2,17 @@ require("der.remap")
 require("der.lazy_init")
 require("der.set")
 require("der.lualine")
+require("der.better")
+
 
 
 require('mini.starter').setup()
 
 -- ColorScheme
 -- vim.cmd("colorscheme gruvbox")
--- vim.cmd("colorscheme doom-one")
 vim.cmd("colorscheme rose-pine-moon")
+-- vim.cmd("colorscheme rose-pine")
+-- vim.cmd("colorscheme onedark")
 -- vim.o.background = "dark"
 
 
@@ -59,3 +62,7 @@ require("markview").setup({
         }
     }
 });
+-- require('notify').setup({
+--     background_colour = "#000000",
+-- })
+-- require('mini.tabline').setup()

@@ -2,7 +2,6 @@ return {
 	{
 		"ellisonleao/gruvbox.nvim",
 		priority = 500 ,
-		config = true,
 		opts = ...,
 
         config = function ()
@@ -32,49 +31,8 @@ return {
             })
         end
 	},
-
-	{
-	    'NTBBloodbath/doom-one.nvim',
-	    setup = function()
-		-- Add color to cursor
-			vim.g.doom_one_cursor_coloring = false
-			-- Set :terminal colors
-			vim.g.doom_one_terminal_colors = true
-			-- Enable italic comments
-			vim.g.doom_one_italic_comments = false
-			-- Enable TS support
-			vim.g.doom_one_enable_treesitter = true
-			-- Color whole diagnostic text or only underline
-            vim.g.doom_one_diagnostics_text_color = true
-			-- Enable transparent background
-			vim.g.doom_one_transparent_background = true
-
-		-- Pumblend transparency
-			vim.g.doom_one_pumblend_enable = true
-			vim.g.doom_one_pumblend_transparency = 20
-
-		-- Plugins integration
-			vim.g.doom_one_plugin_neorg = true
-			vim.g.doom_one_plugin_barbar = false
-			vim.g.doom_one_plugin_telescope = true
-			vim.g.doom_one_plugin_neogit = true
-			vim.g.doom_one_plugin_nvim_tree = true
-			vim.g.doom_one_plugin_dashboard = true
-			vim.g.doom_one_plugin_startify = true
-			vim.g.doom_one_plugin_whichkey = true
-			vim.g.doom_one_plugin_indent_blankline = true
-			vim.g.doom_one_plugin_vim_illuminate = true
-			vim.g.doom_one_plugin_lspsaga = false
-		end,
-		-- config = function()
-		--           require("doom-one").setup({
-		--               transparent_mode = true,
-		--           })
-		--    end,
-	},
     {
-        "rose-pine/neovim", 
-        name = "rose-pine",
+        "rose-pine/neovim",
         config = function()
             require("rose-pine").setup({
                 variant = "auto", -- auto, main, moon, or dawn
@@ -95,7 +53,7 @@ return {
                 },
 
                 groups = {
-                    border = "muted",
+                    border = "love",
                     link = "iris",
                     panel = "surface",
 
@@ -136,6 +94,12 @@ return {
                 highlight_groups = {
                     -- Comment = { fg = "foam" },
                     -- VertSplit = { fg = "muted", bg = "muted" },
+                    TelescopeBorder = { fg = "highlight_high", bg = "none" },
+                    TelescopeNormal = { bg = "none" },
+                    TelescopePromptNormal = { bg = "base" },
+                    TelescopeResultsNormal = { fg = "subtle", bg = "none" },
+                    TelescopeSelection = { fg = "text", bg = "base" },
+                    TelescopeSelectionCaret = { fg = "rose", bg = "rose" },
                 },
 
                 before_highlight = function(group, highlight, palette)
@@ -155,6 +119,54 @@ return {
             -- vim.cmd("colorscheme rose-pine-main")
             -- vim.cmd("colorscheme rose-pine-moon")
             -- vim.cmd("colorscheme rose-pine-dawn")
+        end
+    },
+    {
+        'navarasu/onedark.nvim',
+        config = function()
+            require('onedark').setup  {
+                -- Main options --
+                style = 'dark', -- Default theme style. Choose between 'dark', 'darker', 'cool', 'deep', 'warm', 'warmer' and 'light'
+                transparent = true,  -- Show/hide background
+                term_colors = false, -- Change terminal color as per the selected theme style
+                ending_tildes = false, -- Show the end-of-buffer tildes. By default they are hidden
+                cmp_itemkind_reverse = false, -- reverse item kind highlights in cmp menu
+
+                -- toggle theme style ---
+                toggle_style_key = nil, -- keybind to toggle theme style. Leave it nil to disable it, or set it to a string, for example "<leader>ts"
+                toggle_style_list = {'dark', 'darker', 'cool', 'deep', 'warm', 'warmer', 'light'}, -- List of styles to toggle between
+
+                -- Change code style ---
+                -- Options are italic, bold, underline, none
+                -- You can configure multiple style with comma separated, For e.g., keywords = 'italic,bold'
+                code_style = {
+                    comments = 'none',
+                    keywords = 'none',
+                    functions = 'none',
+                    strings = 'none',
+                    variables = 'none'
+                },
+
+                -- Lualine options --
+                lualine = {
+                    transparent = true, -- lualine center bar transparency
+                },
+
+                which_key = {
+                    transparent = true, -- which-key popup transparency
+                },
+
+                -- Custom Highlights --
+                colors = {}, -- Override default colors
+                highlights = {}, -- Override highlight groups
+
+                -- Plugins Config --
+                diagnostics = {
+                    darker = true, -- darker colors for diagnostic
+                    undercurl = true,   -- use undercurl instead of underline for diagnostics
+                    background = false,    -- use background color for virtual text
+                },
+            }
         end
     }
 }
