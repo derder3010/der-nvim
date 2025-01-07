@@ -177,6 +177,18 @@ ins_left {
 --   end,
 -- }
 
+-- ins_right{
+-- 	function ()
+-- 		local current_signature = function(width)
+--   			if not pcall(require, 'lsp_signature') then return end
+--   			local sig = require("lsp_signature").status_line(width)
+--   			return sig.label .. "🐼" .. sig.hint
+-- 		end
+-- 	end,
+-- 	color = { fg = colors.darkblue, gui = 'bold'}
+--
+-- }
+
 ins_right {
   -- Lsp server name .
   function()
@@ -186,13 +198,21 @@ ins_right {
     if next(clients) == nil then
       return msg
     end
+
+    local active_client = {}
     for _, client in ipairs(clients) do
       local filetypes = client.config.filetypes
       if filetypes and vim.fn.index(filetypes, buf_ft) ~= -1 then
-        return client.name
+        -- return client.name
+        table.insert(active_client, client.name)
       end
     end
-    return msg
+    -- return msg
+    if #active_client > 0 then
+        return table.concat(active_client, ', ')
+    else
+        return msg
+    end
   end,
   -- icon = ' LSP:',
   icon = 'LSP:',

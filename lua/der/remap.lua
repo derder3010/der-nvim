@@ -32,3 +32,6 @@ vim.keymap.set("n", "<C-w>", '<cmd>bdelete<CR>')
 vim.keymap.set("n", "<leader>A", '<cmd>SupermavenRestart<CR>')
 vim.keymap.set("n", "<leader>S", '<cmd>SupermavenRestop<CR>')
 
+vim.keymap.set("n", "<leader>n", '<cmd>Fidget history<CR>')
+vim.keymap.set("n", "<leader>q", '<cmd>copen<CR>')
+

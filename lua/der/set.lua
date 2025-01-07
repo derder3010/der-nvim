@@ -1,10 +1,17 @@
 vim.opt.nu = true
 vim.opt.relativenumber = true
+vim.opt.numberwidth = 2
 
--- vim.opt.tabstop = 4
--- vim.opt.softtabstop = 4
--- vim.opt.shiftwidth = 4
--- vim.opt.expandtab = true
+vim.opt.mouse = "a"
+vim.opt.smartcase = true
+vim.opt.cmdheight = 1
+vim.opt.completeopt = { "menuone", "noselect" }
+vim.opt.clipboard = "unnamedplus"
+
+vim.opt.tabstop = 2
+vim.opt.softtabstop = 4
+vim.opt.shiftwidth = 4
+vim.opt.expandtab = true
 
 vim.opt.smartindent = true
 
@@ -24,7 +31,7 @@ vim.opt.scrolloff = 8
 
 vim.opt.updatetime = 50
 vim.o.showmode = false
-vim.o.showcmd = true
+vim.o.showcmd = false
 
 vim.opt.termguicolors = true
 vim.o.sessionoptions="blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions"

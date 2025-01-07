@@ -8,6 +8,7 @@ return {
   	{ 'echasnovski/mini.starter', version = '*' },
     {
       'nvim-lualine/lualine.nvim',
-    }
+    },
+     { "RRethy/vim-illuminate", event = "VeryLazy" }
 }
 
