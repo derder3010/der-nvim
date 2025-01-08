@@ -35,3 +35,10 @@ vim.keymap.set("n", "<leader>S", '<cmd>SupermavenRestop<CR>')
 vim.keymap.set("n", "<leader>n", '<cmd>Fidget history<CR>')
 vim.keymap.set("n", "<leader>q", '<cmd>copen<CR>')
 
+
+vim.g.VM_maps = {
+    ['Find Under'] = '<C-d>',         -- Thay thế cho Ctrl-n
+    ['Find Subword Under'] = '<C-d>', -- Thay thế cho visual Ctrl-n
+}
+
+-- vim.keymap.set("n", "<leader>d" ,'<Cmd>lua require("dapui").open()<CR>')

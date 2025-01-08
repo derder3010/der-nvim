@@ -9,6 +9,13 @@ return {
     {
       'nvim-lualine/lualine.nvim',
     },
-     { "RRethy/vim-illuminate", event = "VeryLazy" }
+    { "RRethy/vim-illuminate", event = "VeryLazy" },
+    {
+        "dstein64/vim-startuptime",
+        cmd = "StartupTime",
+        config = function()
+            vim.g.startuptime_tries = 10
+        end,
+    }
 }
 

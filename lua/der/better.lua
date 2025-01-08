@@ -48,18 +48,6 @@ vim.api.nvim_create_autocmd("BufWritePre", {
 -- Tắt echom mặc định khi write file
 vim.opt.shortmess:append('W')
 
-vim.api.nvim_create_autocmd("LspAttach", {
-  callback = function(args)
-    local bufnr = args.buf
-    local client = vim.lsp.get_client_by_id(args.data.client_id)
-    if vim.tbl_contains({ 'null-ls' }, client.name) then  -- blacklist lsp
-      return
-    end
-    require("lsp_signature").on_attach({
-      -- ... setup options here ...
-    }, bufnr)
-  end,
-})
 
 -- vim.api.nvim_create_autocmd("BufWritePost", {
 --     callback = function()
@@ -73,3 +61,22 @@ vim.api.nvim_create_autocmd("DiagnosticChanged", {
     end,
 })
 
+-- vim.g.rustaceanvim = {
+--   -- Plugin configuration
+--   tools = {
+--   },
+--   -- LSP configuration
+--   server = {
+--     on_attach = function(client, bufnr)
+--       -- you can also put keymaps in here
+--     end,
+--     default_settings = {
+--       -- rust-analyzer language server configuration
+--       ['rust-analyzer'] = {
+--       },
+--     },
+--   },
+--   -- DAP configuration
+--   dap = {
+--   },
+-- }

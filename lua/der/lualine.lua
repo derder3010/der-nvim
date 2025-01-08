@@ -177,17 +177,6 @@ ins_left {
 --   end,
 -- }
 
--- ins_right{
--- 	function ()
--- 		local current_signature = function(width)
---   			if not pcall(require, 'lsp_signature') then return end
---   			local sig = require("lsp_signature").status_line(width)
---   			return sig.label .. "🐼" .. sig.hint
--- 		end
--- 	end,
--- 	color = { fg = colors.darkblue, gui = 'bold'}
---
--- }
 
 ins_right {
   -- Lsp server name .
