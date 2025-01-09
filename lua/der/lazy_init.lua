@@ -25,3 +25,8 @@ require("lazy").setup({
     changed_detection = { enabled = true, notify = true },
     ui = { border = "rounded" },
 })
+--
+-- {
+--   { import = "lazyvim.plugins.extras.linting.eslint" },
+--   { import = "lazyvim.plugins.extras.formatting.prettier" },
+-- }

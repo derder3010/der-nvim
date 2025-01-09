@@ -177,6 +177,33 @@ ins_left {
 --   end,
 -- }
 
+ins_right {
+function() return require("noice").api.status.command.get() end,
+cond = function() return package.loaded["noice"] and require("noice").api.status.command.has() end,
+color = { fg = colors.red }
+}
+
+
+ins_right {
+  function() return require("noice").api.status.mode.get() end,
+  cond = function() return package.loaded["noice"] and require("noice").api.status.mode.has() end,
+  color = { fg = colors.red }
+}
+ins_right {
+  require("lazy.status").updates,
+  cond = require("lazy.status").has_updates,
+  color = { fg = colors.red }
+}
+
+
+
+
+
+
+
+
+
+
 
 ins_right {
   -- Lsp server name .

@@ -15,26 +15,26 @@ return {
   branch = "v3.x",
   dependencies = {
     "nvim-lua/plenary.nvim",
-    "nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
+    -- "nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
     "MunifTanjim/nui.nvim",
-    {
-      "s1n7ax/nvim-window-picker",
-      version = "2.*",
-      config = function()
-        require("window-picker").setup({
-          filter_rules = {
-            include_current_win = false,
-            autoselect_one = true,
-            bo = {
-              -- if the file type is one of following, the window will be ignored
-              filetype = { "neo-tree", "neo-tree-popup", "notify" },
-              -- if the buffer type is one of following, the window will be ignored
-              buftype = { "terminal", "quickfix" },
-            },
-          },
-        })
-      end,
-    },
+    -- {
+    --   "s1n7ax/nvim-window-picker",
+    --   version = "2.*",
+    --   config = function()
+    --     require("window-picker").setup({
+    --       filter_rules = {
+    --         include_current_win = false,
+    --         autoselect_one = true,
+    --         bo = {
+    --           -- if the file type is one of following, the window will be ignored
+    --           filetype = { "neo-tree", "neo-tree-popup", "notify" },
+    --           -- if the buffer type is one of following, the window will be ignored
+    --           buftype = { "terminal", "quickfix" },
+    --         },
+    --       },
+    --     })
+    --   end,
+    -- },
   },
   config = function()
     vim.fn.sign_define("DiagnosticSignError", { text = " ", texthl = "DiagnosticSignError" })
@@ -44,7 +44,7 @@ return {
 
     require("neo-tree").setup({
       close_if_last_window = false,
-      popup_border_style = "rounded",
+      popup_border_style = nil,
       enable_git_status = true,
       enable_diagnostics = true,
       open_files_do_not_replace_types = { "terminal", "trouble", "qf" },
@@ -132,12 +132,13 @@ return {
           hide_gitignored = false,
           hide_hidden = false,
         },
-        follow_current_file = { enabled = false, leave_dirs_open = false },
+        follow_current_file = { enabled = true, leave_dirs_open = true },
         group_empty_dirs = false,
-        hijack_netrw_behavior = "disabled", -- to set "open_default"
-        use_libuv_file_watcher = false,
+        -- hijack_netrw_behavior = "disabled", -- to set "open_default"
+        hijack_netrw_behavior = "open_current", -- to set "open_default"
+        use_libuv_file_watcher = true,
         window = {
-          -- position = "current",
+          -- position = "left",
           mappings = {
             ["<bs>"] = "navigate_up",
             ["."] = "set_root",

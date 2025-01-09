@@ -4,8 +4,9 @@ require("der.set")
 require("der.lualine")
 require("der.better")
 
+require('scrollview').setup()
 
-
+-- require("scrollbar").setup()
 require('mini.starter').setup()
 
 -- ColorScheme
@@ -13,7 +14,7 @@ require('mini.starter').setup()
 vim.cmd("colorscheme rose-pine-moon")
 -- vim.cmd("colorscheme rose-pine")
 -- vim.cmd("colorscheme onedark")
--- vim.o.background = "dark"
+vim.o.background = "dark"
 
 
 require("indent_blankline").setup({

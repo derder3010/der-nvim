@@ -44,4 +44,4 @@ return {
       desc = "Next Trouble/Quickfix Item",
     },
   },
-} 
+}
