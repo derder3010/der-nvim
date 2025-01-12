@@ -38,3 +38,7 @@ vim.o.sessionoptions="blank,buffers,curdir,folds,help,tabpages,winsize,winpos,te
 -- Vô hiệu hóa netrw hoàn toàn
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
+
+
+vim.api.nvim_set_var('t_Cs', '\\e[4:3m')
+vim.api.nvim_set_var('t_Ce', '\\e[4:0m')

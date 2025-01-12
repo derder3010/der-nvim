@@ -13,8 +13,8 @@ require('mini.starter').setup()
 vim.cmd("colorscheme rose-pine-moon")
 -- vim.cmd("colorscheme rose-pine")
 -- vim.cmd("colorscheme onedark")
-vim.o.background = "dark"
-
+-- vim.o.background = "dark"
+-- vim.cmd([[colorscheme tokyonight]])
 
 require("indent_blankline").setup({
   char = "│",

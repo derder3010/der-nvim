@@ -1,4 +1,16 @@
 return {
+     {
+        "folke/tokyonight.nvim",
+        lazy = false, -- make sure we load this during startup if it is your main colorscheme
+        priority = 1000, -- make sure to load this before all the other start plugins
+        config = function()
+          -- load the colorscheme here
+            require("tokyonight").setup({
+                style = "night",
+                transparent = true,
+            })
+        end,
+     },
 	{
 		"ellisonleao/gruvbox.nvim",
 		priority = 500 ,
@@ -128,9 +140,9 @@ return {
                 -- Main options --
                 style = 'dark', -- Default theme style. Choose between 'dark', 'darker', 'cool', 'deep', 'warm', 'warmer' and 'light'
                 transparent = true,  -- Show/hide background
-                term_colors = false, -- Change terminal color as per the selected theme style
-                ending_tildes = false, -- Show the end-of-buffer tildes. By default they are hidden
-                cmp_itemkind_reverse = false, -- reverse item kind highlights in cmp menu
+                term_colors = true, -- Change terminal color as per the selected theme style
+                ending_tildes = true, -- Show the end-of-buffer tildes. By default they are hidden
+                cmp_itemkind_reverse = false,
 
                 -- toggle theme style ---
                 toggle_style_key = nil, -- keybind to toggle theme style. Leave it nil to disable it, or set it to a string, for example "<leader>ts"
@@ -156,6 +168,14 @@ return {
                     transparent = true, -- which-key popup transparency
                 },
 
+                lazy = {
+                    transparent = true, -- lazy.nvim popup transparency
+                },
+
+                mason = {
+                    transparent = true, -- mason.nvim popup transparency
+                },
+
                 -- Custom Highlights --
                 colors = {}, -- Override default colors
                 highlights = {}, -- Override highlight groups
@@ -164,7 +184,7 @@ return {
                 diagnostics = {
                     darker = true, -- darker colors for diagnostic
                     undercurl = true,   -- use undercurl instead of underline for diagnostics
-                    background = false,    -- use background color for virtual text
+                    background = true,    -- use background color for virtual text
                 },
             }
         end
