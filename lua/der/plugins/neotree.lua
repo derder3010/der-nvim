@@ -153,6 +153,15 @@ return {
           },
         },
       },
+      event_handlers = {
+        {
+            event = "file_opened",
+            handler = function ()
+                -- Auto-close the tree when opening a file
+                require("neo-tree.command").execute({ action = "close" })
+            end,
+        },
+      },
       buffers = {
         follow_current_file = { enabled = true, leave_dirs_open = false },
         group_empty_dirs = true,
