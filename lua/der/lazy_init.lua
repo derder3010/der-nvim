@@ -24,6 +24,13 @@ require("lazy").setup({
     checker = { enabled = true },
     changed_detection = { enabled = true, notify = true },
     ui = { border = "rounded" },
+    performance = {
+        rtp = {
+            disabled_plugins = {
+                "netrwPlugin",
+            }
+        }
+    }
 })
 --
 -- {

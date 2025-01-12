@@ -2,11 +2,10 @@ require("der.remap")
 require("der.lazy_init")
 require("der.set")
 require("der.lualine")
-require("der.better")
+require("der.cmd")
 
 require('scrollview').setup()
 
--- require("scrollbar").setup()
 require('mini.starter').setup()
 
 -- ColorScheme

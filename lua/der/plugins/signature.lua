@@ -1,5 +1,5 @@
 return {
-    -- "ray-x/lsp_signature.nvim",
+    "ray-x/lsp_signature.nvim",
     -- event = "VeryLazy",
     -- opts = {
     --     bind = true,

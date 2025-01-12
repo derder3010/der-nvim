@@ -1,5 +1,4 @@
 return {
-    -- 'petertriho/nvim-scrollbar',
     'dstein64/nvim-scrollview',
     'nvim-lua/plenary.nvim',
     {

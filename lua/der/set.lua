@@ -1,4 +1,3 @@
-vim.opt.nu = true
 vim.opt.relativenumber = true
 vim.opt.numberwidth = 2
 
@@ -37,5 +36,5 @@ vim.opt.termguicolors = true
 vim.o.sessionoptions="blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions"
 
 -- Vô hiệu hóa netrw hoàn toàn
--- vim.g.loaded_netrw = 1
--- vim.g.loaded_netrwPlugin = 1
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
