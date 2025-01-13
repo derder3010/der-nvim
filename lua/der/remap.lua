@@ -1,7 +1,9 @@
 vim.g.mapleader = " "
 -- vim.keymap.set("n", "<leader><space>", vim.cmd.Ex)
-vim.cmd([[nnoremap \ :Ex<cr>]])
-vim.keymap.set("n", "<leader><space>", "<cmd>Neotree reveal<cr>")
+-- vim.cmd([[nnoremap \ :Ex<cr>]])
+vim.keymap.set("n", "<leader><space>", "<cmd>Neotree bottom<cr>")
+vim.keymap.set("n", "<leader>e", "<cmd>Neotree left<cr>")
+vim.cmd([[nnoremap  \ :Neotree current<cr>]])
 vim.keymap.set("n", "<leader>l", "<cmd>Lazy<cr>")
 vim.keymap.set("n", "<leader>m", "<cmd>Mason<cr>")
 -- vim.keymap.set('n', '<leader>/', function()
