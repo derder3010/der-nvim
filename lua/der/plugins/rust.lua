@@ -14,7 +14,18 @@ return {
                     cmp = {
                         enabled = true,
                     },
+                    crates = {
+                        enabled = true,
+                    }
                 },
+                null_ls = {
+                    enabled = true,
+                },
+                lsp = {
+                    enabled = true,
+                    completion = true,
+                    hower = true,
+                }
             })
         end,
     },
