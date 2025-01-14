@@ -16,7 +16,12 @@ vim.keymap.set('v', '<leader>/', function()
 end)
 
 -- vim.keymap.set("n", "<leader>t", "<cmd>Trouble diagnostics<cr>")
-vim.keymap.set("n", "<leader>t", "<cmd>ToggleTerm<cr>")
+vim.keymap.set("n", "<leader>t", ":botright 15split | terminal ")
+-- vim.keymap.set("n", "<leader>T", "<cmd>ToggleTerm<cr>")
+
+-- vim.keymap.set('n', '<leader>g', function()
+--     builtin.grep_string({ search = vim.fn.input( "Grep > ") });
+-- end)
 
 vim.keymap.set("n", "<leader>u", "<cmd>LspInstall<cr>")
 -- vim.keymap.set("n", "<leader>e", "<cmd>Neotree position=left<cr>")
@@ -34,7 +39,7 @@ vim.keymap.set("n", "<C-w>", '<cmd>bdelete<CR>')
 vim.keymap.set("n", "<leader>A", '<cmd>SupermavenRestart<CR>')
 vim.keymap.set("n", "<leader>S", '<cmd>SupermavenRestop<CR>')
 
-vim.keymap.set("n", "<leader>n", '<cmd>Fidget history<CR>')
+vim.keymap.set("n", "<leader>n", '<cmd>Noice history<CR>')
 vim.keymap.set("n", "<leader>q", '<cmd>copen<CR>')
 
 
@@ -45,6 +50,8 @@ vim.g.VM_maps = {
 
 -- vim.keymap.set("n", "<leader>d" ,'<Cmd>lua require("dapui").open()<CR>')
 
+vim.keymap.set("n", "<leader>h", '<cmd>split<CR>')
+vim.keymap.set("n", "<leader>v", '<cmd>vsplit<CR>')
 -- Di chuyển giữa các split panels bằng Ctrl + h/j/k/l
 vim.keymap.set('n', '<C-h>', '<C-w>h', { desc = 'Move to the left split' })
 vim.keymap.set('n', '<C-j>', '<C-w>j', { desc = 'Move to the below split' })
