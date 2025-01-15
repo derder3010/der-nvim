@@ -36,7 +36,7 @@ vim.keymap.set("n", "<tab>", '<cmd>BufferLineCycleNext<CR>')
 -- vim.keymap.set('n', '<C-S-Tab>', '<cmd>bwind<CR>', { noremap = true, silent = true })
 -- Đóng tab hiện tại
 -- vim.keymap.set("n", "<C-w>", '<cmd>bdelete<CR>')
-vim.keymap.set("n", "<C-w>", function ()
+vim.keymap.set("n", "<C-w>", function()
     Snacks.bufdelete()
 end)
 vim.keymap.set("n", "<leader>A", '<cmd>SupermavenRestart<CR>')

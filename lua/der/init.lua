@@ -29,7 +29,7 @@ vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
 -- ]])
 
 require("markview").setup({
-	--- Time in miliseconds to wait before a redraw occurs(after any
+    --- Time in miliseconds to wait before a redraw occurs(after any
     --- of the redraw events).
     ---
     --- Redraw events are, cursorMoved, "ModeChanged", "TextChanged";
@@ -52,7 +52,7 @@ require("markview").setup({
     injections = {
         languages = {
             markdown = {
-            	enable = true,
+                enable = true,
                 --- This disables other
                 --- injected queries!
                 overwrite = true,
@@ -64,34 +64,21 @@ require("markview").setup({
             }
         }
     }
-});
--- require('notify').setup({
---     background_colour = "#000000",
--- })
--- require('mini.tabline').setup()
---
+})
 
-
-
--- cfg = {…}  -- add you config here
--- local cfg = {
---   floating_window_off_x = 5, -- adjust float windows x position.
---   floating_window_off_y = function() -- adjust float windows y position. e.g. set to -2 can make floating window move up 2 lines
---     local linenr = vim.api.nvim_win_get_cursor(0)[1] -- buf line number
---     local pumheight = vim.o.pumheight
---     local winline = vim.fn.winline() -- line number in the window
---     local winheight = vim.fn.winheight(0)
---
---     -- window top
---     if winline - 1 < pumheight then
---       return pumheight
---     end
---
---     -- window bottom
---     if winheight - winline < pumheight then
---       return -pumheight
---     end
---     return 0
---   end,
--- }
--- require "lsp_signature".setup(cfg)
+require("conform").setup({
+    formatters_by_ft = {
+        lua = { "stylua" },
+        -- Conform will run multiple formatters sequentially
+        python = { "isort", "black" },
+        -- You can customize some of the format options for the filetype (:help conform.format)
+        rust = { "rustfmt", lsp_format = "fallback" },
+        -- Conform will run the first available formatter
+        javascript = { "prettierd", "prettier", stop_after_first = true },
+    },
+    format_on_save = {
+        -- These options will be passed to conform.format()
+        timeout_ms = 500,
+        lsp_format = "fallback",
+    },
+})
