@@ -10,20 +10,23 @@ require('mini.starter').setup()
 
 -- ColorScheme
 -- vim.cmd("colorscheme gruvbox")
-vim.cmd("colorscheme rose-pine-moon")
+-- vim.cmd("colorscheme rose-pine-moon")
+vim.cmd("colorscheme gruber-darker")
 -- vim.cmd("colorscheme rose-pine")
 -- vim.cmd("colorscheme onedark")
--- vim.o.background = "dark"
 -- vim.cmd([[colorscheme tokyonight]])
 
-require("indent_blankline").setup({
-  char = "│",
-  show_trailing_blankline_indent = false, -- Tắt đường thụt lề cuối dòng trống
-  show_current_context = false, -- Hiển thị ngữ cảnh hiện tại
-  show_current_context_start = false, -- Hiển thị điểm bắt đầu ngữ cảnh
-  filetype_exclude = { "lazy", "mason", "help" }, -- Loại trừ tệp không cần thiết
-  buftype_exclude = { "terminal", "nofile" }, -- Loại trừ buffer không cần thiết
-})
+-- neonhive, breakingbad, batman, ironman_dark, cody, cold, matrix, darkmatrix, nordic-aurora, superman, topology
+-- vim.cmd("colorscheme batman")
+-- vim.o.background = "dark"
+vim.o.termguicolors = true
+vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
+vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
+
+-- vim.cmd([[
+--   highlight Normal guibg=none
+--   highlight NormalFloat guibg=none
+-- ]])
 
 require("markview").setup({
 	--- Time in miliseconds to wait before a redraw occurs(after any

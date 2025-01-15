@@ -35,7 +35,10 @@ vim.keymap.set("n", "<tab>", '<cmd>BufferLineCycleNext<CR>')
 -- Chuyển sang tab trước đó
 -- vim.keymap.set('n', '<C-S-Tab>', '<cmd>bwind<CR>', { noremap = true, silent = true })
 -- Đóng tab hiện tại
-vim.keymap.set("n", "<C-w>", '<cmd>bdelete<CR>')
+-- vim.keymap.set("n", "<C-w>", '<cmd>bdelete<CR>')
+vim.keymap.set("n", "<C-w>", function ()
+    Snacks.bufdelete()
+end)
 vim.keymap.set("n", "<leader>A", '<cmd>SupermavenRestart<CR>')
 vim.keymap.set("n", "<leader>S", '<cmd>SupermavenRestop<CR>')
 
@@ -60,3 +63,10 @@ vim.keymap.set('n', '<C-l>', '<C-w>l', { desc = 'Move to the right split' })
 
 vim.keymap.set('v', '<Tab>', '>')
 vim.keymap.set('v', '<S-Tab>', '<')
+
+
+-- Resize splits using Ctrl + Arrow Keys
+vim.keymap.set('n', '<C-Up>', ':resize -2<CR>', { desc = 'Resize split up' })
+vim.keymap.set('n', '<C-Down>', ':resize +2<CR>', { desc = 'Resize split down' })
+vim.keymap.set('n', '<C-Left>', ':vertical resize -2<CR>', { desc = 'Resize split left' })
+vim.keymap.set('n', '<C-Right>', ':vertical resize +2<CR>', { desc = 'Resize split right' })

@@ -143,7 +143,7 @@ function M.config()
       { name = "path" },
       { name = "calc" },
       { name = "emoji" },
-      { name = "supermaven" },
+      -- { name = "supermaven" },
       { name = "crates" }
     },
     confirm_opts = {
