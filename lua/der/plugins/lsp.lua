@@ -1,37 +1,5 @@
 return {
     {
-        -- {
-        --   'williamboman/mason.nvim',
-        --   lazy = false,
-        --   opts = {},
-        -- },
-
-        -- Autocompletion
-        -- {
-        --   'hrsh7th/nvim-cmp',
-        --   event = 'InsertEnter',
-        --   config = function()
-        --     local cmp = require('cmp')
-        --
-        --     cmp.setup({
-        --       sources = {
-        --         {name = 'nvim_lsp'},
-        --       },
-        --       mapping = cmp.mapping.preset.insert({
-        --         ['<C-Space>'] = cmp.mapping.complete(),
-        --         ['<C-u>'] = cmp.mapping.scroll_docs(-4),
-        --         ['<C-d>'] = cmp.mapping.scroll_docs(4),
-        --         ['<CR>'] = cmp.mapping.confirm({select = true}),
-        --       }),
-        --       snippet = {
-        --         expand = function(args)
-        --           vim.snippet.expand(args.body)
-        --         end,
-        --       },
-        --     })
-        --   end
-        -- },
-
         -- LSP
         {
             'neovim/nvim-lspconfig',
@@ -48,7 +16,6 @@ return {
                 "hrsh7th/nvim-cmp",
                 "L3MON4D3/LuaSnip",
                 "saadparwaiz1/cmp_luasnip",
-                "j-hui/fidget.nvim",
             },
             init = function()
                 -- Reserve a space in the gutter

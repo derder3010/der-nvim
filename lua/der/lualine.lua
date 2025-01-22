@@ -148,7 +148,8 @@ ins_left {
 
 ins_left {
     function()
-        return vim.fn.expand('%:p') -- Lấy đường dẫn đầy đủ của file
+        local full_path = vim.fn.expand('%:p') -- Lấy đường dẫn đầy đủ
+        return full_path:gsub(vim.env.HOME, "~") -- Thay đường dẫn HOME bằng ~
     end,
     cond = conditions.buffer_not_empty,
     color = { fg = colors.magenta, gui = 'bold' },
@@ -245,7 +246,7 @@ ins_right {
 
 -- Add components to right sections
 ins_right {
-    'o:encoding',     -- option component same as &encoding in viml
+    'o:encoding',       -- option component same as &encoding in viml
     fmt = string.upper, -- I'm not sure why it's upper case either ;)
     cond = conditions.hide_in_width,
     color = { fg = colors.green, gui = 'bold' },

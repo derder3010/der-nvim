@@ -10,18 +10,18 @@ require('mini.starter').setup()
 
 -- ColorScheme
 -- vim.cmd("colorscheme gruvbox")
--- vim.cmd("colorscheme rose-pine-moon")
-vim.cmd("colorscheme gruber-darker")
+vim.cmd("colorscheme rose-pine-moon")
 -- vim.cmd("colorscheme rose-pine")
 -- vim.cmd("colorscheme onedark")
 -- vim.cmd([[colorscheme tokyonight]])
 
 -- neonhive, breakingbad, batman, ironman_dark, cody, cold, matrix, darkmatrix, nordic-aurora, superman, topology
 -- vim.cmd("colorscheme batman")
+-- vim.cmd("colorscheme gruber-darker")
 -- vim.o.background = "dark"
-vim.o.termguicolors = true
-vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
-vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
+-- vim.o.termguicolors = true
+-- vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
+-- vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
 
 -- vim.cmd([[
 --   highlight Normal guibg=none
