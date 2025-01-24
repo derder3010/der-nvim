@@ -72,30 +72,81 @@ vim.keymap.set('n', '<C-Left>', ':vertical resize -2<CR>', { desc = 'Resize spli
 vim.keymap.set('n', '<C-Right>', ':vertical resize +2<CR>', { desc = 'Resize split right' })
 
 
--- Smart left arrow (wrap to previous line)
-vim.keymap.set({ 'n', 'v', 'i' }, '<Left>', function()
-    local cursor = vim.api.nvim_win_get_cursor(0)
-    local row, col = cursor[1], cursor[2]
 
-    if col == 0 and row > 1 then
-        local prev_line = vim.api.nvim_buf_get_lines(0, row - 2, row - 1, true)[1] or ""
-        local prev_line_end = math.max(0, #prev_line - 1) -- Corrected end position
-        vim.api.nvim_win_set_cursor(0, { row - 1, prev_line_end })
-    else
-        vim.api.nvim_win_set_cursor(0, { row, math.max(col - 1, 0) })
+
+-- local function wrap_mode(mode)
+--     vim.keymap.set(mode, '<Left>', function()
+--         local col = vim.fn.col('.')
+--         local line = vim.fn.getline('.')
+--         if col == 1 and vim.fn.line('.') > 1 then
+--             return mode == 'n' and 'k$' or mode == 'i' and '<C-o>k<C-o>$' or 'k$'
+--         elseif mode == 'i' and col > 1 and line:sub(col - 1, col - 1):match('[(%[{]') then
+--             return '<Left>'
+--         else
+--             return mode == 'n' and 'h' or mode == 'i' and '<Left>' or 'h'
+--         end
+--     end, { expr = true, silent = true })
+--
+--     vim.keymap.set(mode, '<Right>', function()
+--         local col = vim.fn.col('.')
+--         local line = vim.fn.getline('.')
+--         local last_col = vim.fn.col('$') - 1
+--         if col == last_col and vim.fn.line('.') < vim.fn.line('$') then
+--             return mode == 'n' and 'j0' or mode == 'i' and '<C-o>j<C-o>0' or 'j0'
+--         elseif mode == 'i' and col < #line and line:sub(col + 1, col + 1):match('[)%]};]') then
+--             return '<Right>'
+--         else
+--             return mode == 'n' and 'l' or mode == 'i' and '<Right>' or 'l'
+--         end
+--     end, { expr = true, silent = true })
+-- end
+--
+-- wrap_mode('n') -- Normal mode
+-- wrap_mode('v') -- Visual mode
+-- wrap_mode('i') -- Insert mode
+
+
+local function at_line_start()
+    return vim.fn.col('.') == 1 and vim.fn.line('.') > 1
+end
+
+local function at_line_end()
+    return vim.fn.col('.') >= vim.fn.col('$') - 1 and vim.fn.line('.') < vim.fn.line('$')
+end
+
+-- Insert Mode: Improved <Left> and <Right> to work with auto-pairs
+vim.keymap.set('i', '<Left>', function()
+    local line = vim.api.nvim_get_current_line()
+    local col = vim.fn.col('.') -- 1-based column
+
+    -- If inside a closing pair (e.g., `|)`), move left into the pair
+    if col > 1 then
+        local prev_char = line:sub(col - 1, col - 1)
+        local next_char = line:sub(col, col)
+        -- Check if cursor is between a closing pair (e.g., "()", "[]")
+        if (prev_char == '(' and next_char == ')') or
+            (prev_char == '[' and next_char == ']') or
+            (prev_char == '{' and next_char == '}') then
+            return '<Left>'
+        end
     end
-end, { noremap = true, silent = true })
 
--- Smart right arrow (wrap to next line)
-vim.keymap.set({ 'n', 'v', 'i' }, '<Right>', function()
-    local cursor = vim.api.nvim_win_get_cursor(0)
-    local row, col = cursor[1], cursor[2]
-    local current_line = vim.api.nvim_buf_get_lines(0, row - 1, row, true)[1] or ""
-    local line_end = math.max(0, #current_line - 1) -- Corrected end position
+    -- Otherwise, check if at line start and jump to previous line
+    return at_line_start() and '<C-o>k<C-o>$' or '<Left>'
+end, { expr = true, noremap = true })
 
-    if col >= line_end and row < vim.api.nvim_buf_line_count(0) then
-        vim.api.nvim_win_set_cursor(0, { row + 1, 0 })
-    else
-        vim.api.nvim_win_set_cursor(0, { row, math.min(col + 1, line_end) })
+vim.keymap.set('i', '<Right>', function()
+    local line = vim.api.nvim_get_current_line()
+    local col = vim.fn.col('.') -- 1-based column
+
+    -- If inside a closing pair (e.g., `(|)`), move right out of the pair
+    if col <= #line then
+        local next_char = line:sub(col, col)
+        if next_char:match('[%)%]%}]') then
+            return '<Right>'
+        end
     end
-end, { noremap = true, silent = true })
+
+    -- Otherwise, check if at line end and jump to next line
+    return at_line_end() and '<C-o>j<C-o>0' or '<Right>'
+end, { expr = true, noremap = true })
