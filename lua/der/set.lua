@@ -52,8 +52,12 @@ vim.g.lazygit_use_neovim_remote = 1 -- fallback to 0 if neovim-remote is not ins
 vim.g.lazygit_use_custom_config_file_path = 0 -- config file path is evaluated if this value is 1
 vim.g.lazygit_config_file_path = '' -- custom config file path
 
-
+-- vim.opt.shortmess = "ilmnrx"                        -- flags to shorten vim messages, see :help 'shortmess'
+vim.opt.shortmess:append "c"                          -- don't give |ins-completion-menu| messages
+vim.opt.iskeyword:append "-"                          -- hyphenated words recognized by searches
+vim.opt.formatoptions:remove({ "c", "r", "o" })       -- don't insert the current comment leader automatically for auto-wrapping comments using 'textwidth', hitting <Enter> in insert mode, or hitting 'o' or 'O' in normal mode.
+vim.opt.runtimepath:remove("/usr/share/vim/vimfiles") -- separate vim plugins from neovim in case vim still in use
 
 
 -- provided by rust-analyzer.
-vim.g.lazyvim_rust_diagnostics = "rust-analyzer"
+-- vim.g.lazyvim_rust_diagnostics = "rust-analyzer"

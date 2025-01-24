@@ -70,3 +70,32 @@ vim.keymap.set('n', '<C-Up>', ':resize -2<CR>', { desc = 'Resize split up' })
 vim.keymap.set('n', '<C-Down>', ':resize +2<CR>', { desc = 'Resize split down' })
 vim.keymap.set('n', '<C-Left>', ':vertical resize -2<CR>', { desc = 'Resize split left' })
 vim.keymap.set('n', '<C-Right>', ':vertical resize +2<CR>', { desc = 'Resize split right' })
+
+
+-- Smart left arrow (wrap to previous line)
+vim.keymap.set({ 'n', 'v', 'i' }, '<Left>', function()
+    local cursor = vim.api.nvim_win_get_cursor(0)
+    local row, col = cursor[1], cursor[2]
+
+    if col == 0 and row > 1 then
+        local prev_line = vim.api.nvim_buf_get_lines(0, row - 2, row - 1, true)[1] or ""
+        local prev_line_end = math.max(0, #prev_line - 1) -- Corrected end position
+        vim.api.nvim_win_set_cursor(0, { row - 1, prev_line_end })
+    else
+        vim.api.nvim_win_set_cursor(0, { row, math.max(col - 1, 0) })
+    end
+end, { noremap = true, silent = true })
+
+-- Smart right arrow (wrap to next line)
+vim.keymap.set({ 'n', 'v', 'i' }, '<Right>', function()
+    local cursor = vim.api.nvim_win_get_cursor(0)
+    local row, col = cursor[1], cursor[2]
+    local current_line = vim.api.nvim_buf_get_lines(0, row - 1, row, true)[1] or ""
+    local line_end = math.max(0, #current_line - 1) -- Corrected end position
+
+    if col >= line_end and row < vim.api.nvim_buf_line_count(0) then
+        vim.api.nvim_win_set_cursor(0, { row + 1, 0 })
+    else
+        vim.api.nvim_win_set_cursor(0, { row, math.min(col + 1, line_end) })
+    end
+end, { noremap = true, silent = true })

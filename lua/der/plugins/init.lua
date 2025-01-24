@@ -6,11 +6,11 @@ return {
         event = "InsertEnter",
         config = true
     },
-  	{ 'echasnovski/mini.starter', version = '*' },
+    { 'echasnovski/mini.starter', version = '*' },
     {
-      'nvim-lualine/lualine.nvim',
+        'nvim-lualine/lualine.nvim',
     },
-    { "RRethy/vim-illuminate", event = "VeryLazy" },
+    { "RRethy/vim-illuminate",    event = "VeryLazy" },
     -- {
     --     "dstein64/vim-startuptime",
     --     cmd = "StartupTime",
@@ -18,5 +18,9 @@ return {
     --         vim.g.startuptime_tries = 10
     --     end,
     -- }
-}
 
+    {
+        'https://codeberg.org/esensar/nvim-dev-container',
+        dependencies = 'nvim-treesitter/nvim-treesitter'
+    }
+}

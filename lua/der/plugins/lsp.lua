@@ -3,26 +3,13 @@ return {
         -- LSP
         {
             'neovim/nvim-lspconfig',
-            cmd = { 'LspInfo', 'LspInstall', 'LspStart' },
             event = { 'BufReadPre', 'BufNewFile' },
             dependencies = {
-                "stevearc/conform.nvim",
-                "williamboman/mason.nvim",
                 "williamboman/mason-lspconfig.nvim",
-                "hrsh7th/cmp-nvim-lsp",
-                "hrsh7th/cmp-buffer",
-                "hrsh7th/cmp-path",
-                "hrsh7th/cmp-cmdline",
-                "hrsh7th/nvim-cmp",
-                "L3MON4D3/LuaSnip",
-                "saadparwaiz1/cmp_luasnip",
+                "stevearc/conform.nvim",
             },
-            init = function()
-                -- Reserve a space in the gutter
-                -- This will avoid an annoying layout shift in the screen
-                vim.opt.signcolumn = 'yes'
-            end,
             config = function()
+                local capabilities = require('cmp_nvim_lsp').default_capabilities()
                 local lsp_defaults = require('lspconfig').util.default_config
 
                 -- Add cmp_nvim_lsp capabilities settings to lspconfig
@@ -53,21 +40,22 @@ return {
                     end,
                 })
 
-                require('mason-lspconfig').setup({
-                    ensure_installed = {},
-                    handlers = {
-                        -- this first function is the "default handler"
-                        -- it applies to every language server without a "custom handler"
-                        function(server_name)
-                            require('lspconfig')[server_name].setup({})
-                        end,
-                    }
-                })
-
-                require('mason').setup({
-                    ui = {
-                        border = "rounded",
-                    }
+                require('mason-lspconfig').setup_handlers({
+                    function(server_name)
+                        require('lspconfig')[server_name].setup({
+                            capabilities = require('cmp_nvim_lsp').default_capabilities()
+                        })
+                    end,
+                    -- Add server-specific configurations here if needed
+                    ["lua_ls"] = function()
+                        require('lspconfig').lua_ls.setup({
+                            settings = {
+                                Lua = {
+                                    diagnostics = { globals = { 'vim' } }
+                                }
+                            }
+                        })
+                    end
                 })
             end,
         }

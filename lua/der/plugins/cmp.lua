@@ -36,6 +36,11 @@ local M = {
         {
             "hrsh7th/cmp-nvim-lua",
         },
+        "octaltree/cmp-look",
+        "hrsh7th/cmp-calc",
+        "f3fora/cmp-spell",
+        "ray-x/cmp-treesitter",
+        "David-Kunz/cmp-npm",
     },
 }
 
@@ -43,6 +48,8 @@ function M.config()
     local cmp = require "cmp"
     local luasnip = require "luasnip"
     require("luasnip/loaders/from_vscode").lazy_load()
+    local icons = require "der.icons"
+
 
     vim.api.nvim_set_hl(0, "CmpItemKindCopilot", { fg = "#6CC644" })
     vim.api.nvim_set_hl(0, "CmpItemKindTabnine", { fg = "#CA42F0" })
@@ -52,8 +59,6 @@ function M.config()
         local col = vim.fn.col "." - 1
         return col == 0 or vim.fn.getline("."):sub(col, col):match "%s"
     end
-
-    local icons = require "der.icons"
 
     cmp.setup {
         snippet = {
@@ -107,47 +112,19 @@ function M.config()
                 "s",
             }),
         },
-        -- formatting = {
-        --   fields = { "kind", "abbr", "menu" },
-        --   format = function(entry, vim_item)
-        --     vim_item.kind = icons.kind[vim_item.kind]
-        --     vim_item.menu = ({
-        --       nvim_lsp = "",
-        --       nvim_lua = "",
-        --       luasnip = "",
-        --       buffer = "",
-        --       path = "",
-        --       emoji = "",
-        --     })[entry.source.name]
-        --
-        --     if entry.source.name == "emoji" then
-        --       vim_item.kind = icons.misc.Smiley
-        --       vim_item.kind_hl_group = "CmpItemKindEmoji"
-        --     end
-        --
-        --     if entry.source.name == "cmp_tabnine" then
-        --       vim_item.kind = icons.misc.Robot
-        --       vim_item.kind_hl_group = "CmpItemKindTabnine"
-        --     end
-        --
-        --     return vim_item
-        --   end,
-        -- },
+
         formatting = {
             fields = { "kind", "abbr", "menu" },
             max_width = 50, -- Set this to your desired max width
             format = function(entry, vim_item)
                 vim_item.kind = icons.kind[vim_item.kind]
                 -- Set source-specific formatting
-                if entry.source.name == "copilot" then
-                    vim_item.kind_hl_group = "CmpItemKindCopilot"
-                elseif entry.source.name == "cmp_tabnine" then
+                if entry.source.name == "cmp_tabnine" then
                     vim_item.kind = icons.misc.Robot
                     vim_item.kind_hl_group = "CmpItemKindTabnine"
                 elseif entry.source.name == "crates" then
+                    item.kind = icons.misc.CircuitBoard
                     vim_item.kind_hl_group = "CmpItemKindCrate"
-                elseif entry.source.name == "lab.quick_data" then
-                    vim_item.kind_hl_group = "CmpItemKindConstant"
                 elseif entry.source.name == "emoji" then
                     vim_item.kind = icons.misc.Smiley
                     vim_item.kind_hl_group = "CmpItemKindEmoji"
@@ -175,28 +152,44 @@ function M.config()
             end,
         },
         sources = {
-            -- { name = "copilot" },
             {
                 name = "nvim_lsp",
-                entry_filter = function(entry, ctx)
-                    local kind = require("cmp.types.lsp").CompletionItemKind[entry:get_kind()]
-                    if kind == "Snippet" and ctx.prev_context.filetype == "java" then
-                        return false
-                    end
-                    return true
-                end,
+                group_index = 2,
+                -- Filter out unwanted LSP suggestions
+                entry_filter = function(entry)
+                    return require('cmp.types').lsp.CompletionItemKind[entry:get_kind()] ~= "Text"
+                end
             },
-            { name = "luasnip" },
-            { name = "cmp_tabnine" },
-            { name = "nvim_lua" },
-            { name = "buffer" },
-            { name = "treesitter" },
-            { name = "path" },
-            { name = "calc" },
-            { name = "emoji" },
-            -- { name = "supermaven" },
-            { name = "crates" }
+            {
+                name = "buffer",
+                group_index = 2,
+                option = {
+                    get_bufnrs = function() return { vim.api.nvim_get_current_buf() } end,
+                    keyword_length = 3
+                }
+            },
+            { name = "luasnip",     group_index = 2 },
+            { name = "cmp_tabnine", group_index = 2 },
+            { name = "path",        group_index = 2 },
+            { name = "nvim_lua",    group_index = 2 },
+            { name = "calc",        group_index = 2 },
+            { name = "emoji",       group_index = 2 },
+            { name = "treesitter",  group_index = 2 },
+            { name = "crates",      group_index = 2 },
+
         },
+        sorting = {
+            priority_weight = 2.0,
+            comparators = {
+                cmp.config.compare.exact,
+                cmp.config.compare.score,
+                cmp.config.compare.recently_used,
+                cmp.config.compare.locality,
+                cmp.config.compare.offset,
+                cmp.config.compare.order,
+            }
+        },
+
         confirm_opts = {
             behavior = cmp.ConfirmBehavior.Replace,
             select = false,
@@ -214,29 +207,27 @@ function M.config()
             ghost_text = false,
             navtive_menu = false
         },
-        completion = {
-            ---@usage The minimum length of a word to complete on.
-            keyword_length = 1,
-        },
-        cmdline = {
-            enable = false,
-            options = {
-                {
-                    type = ":",
-                    sources = {
-                        { name = "path" },
-                        { name = "cmdline" },
-                    },
-                },
-                {
-                    type = { "/", "?" },
-                    sources = {
-                        { name = "buffer" },
-                    },
-                },
-            },
-        },
+        -- completion = {
+        --     ---@usage The minimum length of a word to complete on.
+        --     keyword_length = 3,
+        -- },
     }
+
+    -- Cmdline setup
+    cmp.setup.cmdline(":", {
+        mapping = cmp.mapping.preset.cmdline(),
+        sources = cmp.config.sources({
+            { name = "path" },
+            { name = "cmdline" },
+        }),
+    })
+
+    cmp.setup.cmdline({ "/", "?" }, {
+        mapping = cmp.mapping.preset.cmdline(),
+        sources = {
+            { name = "buffer" },
+        },
+    })
 end
 
 return M

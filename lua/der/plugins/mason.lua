@@ -1,30 +1,21 @@
-local M = {
-  "williamboman/mason-lspconfig.nvim",
-  dependencies = {
+return {
     "williamboman/mason.nvim",
-  },
+    dependencies = "williamboman/mason-lspconfig.nvim",
+    config = function()
+        require("mason").setup {
+            ui = { border = "rounded" }
+        }
+        require("mason-lspconfig").setup {
+            ensure_installed = {
+                "lua_ls",
+                "cssls",
+                "html",
+                "tsserver", -- Changed from ts_ls
+                "pyright",
+                "bashls",
+                "jsonls",
+                "rust_analyzer"
+            }
+        }
+    end
 }
-
-function M.config()
-  local servers = {
-    "lua_ls",
-    "cssls",
-    "html",
-    "ts_ls",
-    "pyright",
-    "bashls",
-    "jsonls",
-  }
-
-  require("mason").setup {
-    ui = {
-      border = "rounded",
-    },
-  }
-
-  require("mason-lspconfig").setup {
-    ensure_installed = servers,
-  }
-end
-
-return M

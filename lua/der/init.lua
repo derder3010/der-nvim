@@ -10,14 +10,22 @@ require('mini.starter').setup()
 
 -- ColorScheme
 -- vim.cmd("colorscheme gruvbox")
-vim.cmd("colorscheme rose-pine-moon")
+-- vim.cmd("colorscheme rose-pine-moon")
 -- vim.cmd("colorscheme rose-pine")
 -- vim.cmd("colorscheme onedark")
 -- vim.cmd([[colorscheme tokyonight]])
 
 -- neonhive, breakingbad, batman, ironman_dark, cody, cold, matrix, darkmatrix, nordic-aurora, superman, topology
 -- vim.cmd("colorscheme batman")
--- vim.cmd("colorscheme gruber-darker")
+vim.cmd("colorscheme gruber-darker")
+vim.cmd("au ColorScheme * hi Normal ctermbg=none guibg=none")
+vim.cmd("au ColorScheme * hi SignColumn ctermbg=none guibg=none")
+vim.cmd("au ColorScheme * hi NormalNC ctermbg=none guibg=none")
+vim.cmd("au ColorScheme * hi MsgArea ctermbg=none guibg=none")
+vim.cmd("au ColorScheme * hi TelescopeBorder ctermbg=none guibg=none")
+vim.cmd("au ColorScheme * hi NvimTreeNormal ctermbg=none guibg=none")
+vim.cmd("let &fcs='eob: '")
+vim.cmd("doautocmd ColorScheme")
 -- vim.o.background = "dark"
 -- vim.o.termguicolors = true
 -- vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
@@ -82,3 +90,9 @@ require("conform").setup({
         lsp_format = "fallback",
     },
 })
+
+require("devcontainer").setup {}
+
+require('nvim-treesitter.configs').setup {
+    ensure_installed = { "jsonc" }
+}
