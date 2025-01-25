@@ -110,9 +110,9 @@ ins_left {
         local mode_color = {
             n = colors.red,
             i = colors.green,
-            v = colors.blue,
+            v = colors.yellow,
             [''] = colors.blue,
-            V = colors.blue,
+            V = colors.yellow,
             c = colors.magenta,
             no = colors.red,
             s = colors.orange,
@@ -146,14 +146,37 @@ ins_left {
 --   color = { fg = colors.magenta, gui = 'bold' },
 -- }
 
+-- ins_left {
+--     function()
+--         local full_path = vim.fn.expand('%:p') -- Lấy đường dẫn đầy đủ
+--         return full_path:gsub(vim.env.HOME, "~") -- Thay đường dẫn HOME bằng ~
+--     end,
+--     cond = conditions.buffer_not_empty,
+--     color = { fg = colors.magenta, gui = 'bold' },
+-- }
+
 ins_left {
     function()
-        local full_path = vim.fn.expand('%:p') -- Lấy đường dẫn đầy đủ
-        return full_path:gsub(vim.env.HOME, "~") -- Thay đường dẫn HOME bằng ~
+        -- Get the full path and replace HOME with ~
+        local full_path = vim.fn.expand('%:p')
+        full_path = full_path:gsub(vim.env.HOME, "~")
+
+        -- Check if the file is modified (unsaved changes)
+        -- if vim.bo.modified then
+        --     return full_path .. " " -- Add a dot or icon to indicate unsaved
+        -- end
+        return full_path
     end,
     cond = conditions.buffer_not_empty,
-    color = { fg = colors.magenta, gui = 'bold' },
+    color = function()
+        if vim.bo.modified then
+            return { fg = colors.red, gui = 'bold' }   -- Red for unsaved
+        else
+            return { fg = colors.green, gui = 'bold' } -- Green for saved
+        end
+    end,
 }
+
 
 ins_left { 'location' }
 
@@ -241,7 +264,7 @@ ins_right {
     end,
     -- icon = ' LSP:',
     icon = 'LSP:',
-    color = { fg = '#ffffff', gui = 'bold' },
+    color = { fg = colors.magenta, gui = 'bold' },
 }
 
 -- Add components to right sections

@@ -8,7 +8,10 @@ return {
         require('bufferline').setup({
             -- highlights = highlights,
             options = {
+                mode = "tabs",
+                themable = true,
                 always_show_bufferline = false,
+                -- auto_toggle_bufferline = false,
                 sort_by = 'id',
                 offsets = {
                     {

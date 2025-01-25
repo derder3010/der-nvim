@@ -10,7 +10,7 @@ return {
         words = { enabled = true },
         indent = {
             priority = 1,
-            enabled = true,       -- enable indent guides
+            enabled = false,      -- enable indent guides
             char = "│",
             only_scope = false,   -- only show indent guides of the scope
             only_current = false, -- only show indent guides in the current window
@@ -29,7 +29,7 @@ return {
         --     },
         --   },
         scope = {
-            enabled = true, -- enable highlighting the current scope
+            enabled = false, -- enable highlighting the current scope
             priority = 200,
             char = "│",
             underline = false,    -- underline the start of the scope

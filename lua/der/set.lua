@@ -1,5 +1,9 @@
+vim.opt.number = true
 vim.opt.relativenumber = true
-vim.opt.numberwidth = 2
+vim.opt.numberwidth = 1
+-- Disable guicursor to make the cursor a block in all modes
+vim.opt.guicursor = ""
+
 
 vim.opt.mouse = "a"
 vim.opt.smartcase = true
