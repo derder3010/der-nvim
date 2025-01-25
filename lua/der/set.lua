@@ -39,10 +39,20 @@ vim.o.showcmd = false
 vim.opt.termguicolors = true
 vim.o.sessionoptions = "blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions"
 
--- Vô hiệu hóa netrw hoàn toàn
+-- NETRW config
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
+-- Disable banner (remove the help text at the top of Netrw)
+-- vim.g.netrw_banner = 1
 
+-- Show full file details like `ll`
+-- vim.g.netrw_liststyle = 1
+
+-- Open Netrw in a horizontal split at the bottom
+-- vim.g.netrw_browse_split = 3
+
+-- Set the size of the Netrw window
+-- vim.g.netrw_winsize = 25
 
 vim.api.nvim_set_var('t_Cs', '\\e[4:3m')
 vim.api.nvim_set_var('t_Ce', '\\e[4:0m')

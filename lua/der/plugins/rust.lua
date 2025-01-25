@@ -101,7 +101,7 @@ return {
                 lsp = {
                     enabled = true,
                     completion = true,
-                    hower = true,
+                    hover = true,
                     -- action = true,
                 }
             })
