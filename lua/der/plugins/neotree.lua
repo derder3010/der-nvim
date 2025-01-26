@@ -22,21 +22,23 @@ return {
             sort_function = nil,
             popup_border_style = "NC",
             use_popups_for_input = false,
-            -- hide_root_node = true,
+            hide_root_node = true,
             enable_cursor_hijack = true,
-            source_selector = {
-                winbar = false,                        -- toggle to show selector on winbar
-                statusline = true,                     -- toggle to show selector on statusline
-                show_scrolled_off_parent_node = false, -- this will replace the tabs with the parent path
-            },
+            -- source_selector = {
+            --     winbar = false,                        -- toggle to show selector on winbar
+            --     statusline = true,                     -- toggle to show selector on statusline
+            --     show_scrolled_off_parent_node = false, -- this will replace the tabs with the parent path
+            -- },
             default_component_configs = {
                 container = { enable_character_fade = true },
                 indent = {
                     indent_size = 2,
                     padding = 0,
                     with_markers = true,
-                    indent_marker = "│",
-                    last_indent_marker = "└",
+                    -- indent_marker = "│",
+                    -- last_indent_marker = "└",
+                    indent_marker = "..",
+                    last_indent_marker = "..",
                     highlight = "NeoTreeIndentMarker",
                     expander_collapsed = "",
                     expander_expanded = "",
