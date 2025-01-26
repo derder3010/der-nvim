@@ -179,7 +179,7 @@ return {
                         local highlights = require("neo-tree.ui.highlights")
                         if not stat then return {} end
 
-                        local perm_width = 10
+                        local perm_width = 12
                         if node:get_depth() == 1 then
                             return {
                                 text = get_header(state, "Pers", perm_width),
