@@ -8,11 +8,11 @@ return {
         require('bufferline').setup({
             -- highlights = highlights,
             options = {
-                mode = "tabs",
+                -- mode = "tabs",
                 themable = true,
                 always_show_bufferline = false,
                 -- auto_toggle_bufferline = false,
-                sort_by = 'id',
+                sort_by = 'insert_after_current',
                 offsets = {
                     {
                         filetype = 'NvimTree',
@@ -22,7 +22,7 @@ return {
                     }
                 },
                 -- Transparent background configuration
-                separator_style = 'slant',
+                separator_style = 'thin',
                 hover = {
                     enabled = true,
                     delay = 200,
