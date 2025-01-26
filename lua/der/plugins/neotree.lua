@@ -1,3 +1,20 @@
+local uid_cache = {}
+local gid_cache = {}
+
+local function get_username(uid)
+    if uid_cache[uid] then return uid_cache[uid] end
+    local username = vim.fn.trim(vim.fn.system("id -nu " .. uid))
+    uid_cache[uid] = username
+    return username
+end
+
+local function get_groupname(gid)
+    if gid_cache[gid] then return gid_cache[gid] end
+    local groupname = vim.fn.trim(vim.fn.system("id -ng " .. gid))
+    gid_cache[gid] = groupname
+    return groupname
+end
+
 return {
     "nvim-neo-tree/neo-tree.nvim",
     branch = "v3.x",
@@ -85,13 +102,13 @@ return {
                         conflict = "",
                     },
                 },
-                file_size = { enabled = true, width = 12, required_width = 64 },
+                file_size = { enabled = true, width = 10, required_width = 64 },
                 type = { enabled = true, width = 10, required_width = 122 },
                 last_modified = {
                     enabled = true,
-                    width = 20,
+                    width = 18,
                     required_width = 88,
-                    format = "%d-%m %I:%M"
+                    format = "%Y %b %d %H:%M"
                 },
                 created = { enabled = false, width = 20, required_width = 110 },
                 symlink_target = {
@@ -218,10 +235,17 @@ return {
                                 perm_string(owner) .. perm_string(group) .. perm_string(others) .. suffix)
                         end
 
+                        -- local owner = vim.fn.trim(vim.fn.system("id -nu " .. stat.uid))
+                        -- local group = vim.fn.trim(vim.fn.system("id -ng " .. stat.gid))
+
                         return {
-                            -- text = vim.fn.printf("%" .. perm_width .. "s  ",
-                            --     truncate_string(format_permissions(stat.mode), perm_width)),
-                            text = format_permissions(stat.mode),
+                            text = string.format("%s %d %s %s",
+                                format_permissions(stat.mode),
+                                stat.nlink or 1, -- Number of hard links
+                                get_username(stat.uid),
+                                get_groupname(stat.gid) or stat.gid
+                            ),
+                            -- text = format_permissions(stat.mode),
                             highlight = highlights.FILE_STATS,
                         }
                     end
@@ -229,12 +253,6 @@ return {
                 renderers = {
                     directory = {
                         { "permissions", zindex = 10 },
-                        {
-                            "last_modified",
-                            format = "%d-%m %I:%M",
-                            align = "left", -- Align to the right
-                        },
-
                         {
                             "file_size",
                             zindex = 20,
@@ -244,6 +262,10 @@ return {
                             "type",
                             zindex = 10,
                             align = "left", -- Align to the left
+                        },
+                        {
+                            "last_modified",
+                            align = "left", -- Align to the right
                         },
                         { "indent" },
                         {
@@ -254,11 +276,6 @@ return {
                     file = {
                         { "permissions", zindex = 10 },
                         {
-                            "last_modified",
-                            align = "left", -- Align to the right
-                        },
-
-                        {
                             "file_size",
                             align = "left", -- Align to the right
                         },
@@ -266,6 +283,10 @@ return {
                             "type",
                             zindex = 10,
                             align = "left", -- Align to the left
+                        },
+                        {
+                            "last_modified",
+                            align = "left", -- Align to the right
                         },
                         { "indent" },
                         {
