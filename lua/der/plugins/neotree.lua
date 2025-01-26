@@ -20,9 +20,10 @@ return {
             open_files_do_not_replace_types = { "terminal", "trouble", "qf" },
             sort_case_insensitive = false,
             sort_function = nil,
-            popup_border_style = "none",
+            popup_border_style = "NC",
             use_popups_for_input = false,
             -- hide_root_node = true,
+            enable_cursor_hijack = true,
             source_selector = {
                 winbar = false,                        -- toggle to show selector on winbar
                 statusline = true,                     -- toggle to show selector on statusline
@@ -31,9 +32,9 @@ return {
             default_component_configs = {
                 container = { enable_character_fade = true },
                 indent = {
-                    indent_size = 4,
+                    indent_size = 2,
                     padding = 0,
-                    with_markers = false,
+                    with_markers = true,
                     indent_marker = "│",
                     last_indent_marker = "└",
                     highlight = "NeoTreeIndentMarker",
@@ -83,11 +84,45 @@ return {
                     },
                 },
                 file_size = { enabled = true, width = 12, required_width = 64 },
-                type = { enabled = true, width = 10, required_width = 122 },
-                last_modified = { enabled = true, width = 20, required_width = 88, format = "%d-%m %I:%M" },
+                type = { enabled = true, width = 14, required_width = 122 },
+                last_modified = {
+                    enabled = true,
+                    width = 20,
+                    required_width = 88,
+                    format = "%d-%m %I:%M"
+                },
                 created = { enabled = false, width = 20, required_width = 110 },
-                symlink_target = { enabled = false },
+                symlink_target = {
+                    enabled = false,
+                    text_format = " ➛ %s", -- %s will be replaced with the symlink target's path.
+                },
             },
+            -- renderers = {
+            --     directory = {
+            --         {
+            --             "container",
+            --             content = {
+            --                 { "last_modified", zindex = 10, align = "left" },
+            --                 { "created",       zindex = 10, align = "left" },
+            --                 { "file_size",     zindex = 10, align = "left" },
+            --                 { "type",          zindex = 10, align = "left" },
+            --                 { "name",          zindex = 10 },
+            --             },
+            --         },
+            --     },
+            --     file = {
+            --         {
+            --             "container",
+            --             content = {
+            --                 { "last_modified", zindex = 10, align = "left" },
+            --                 { "created",       zindex = 10, align = "left" },
+            --                 { "file_size",     zindex = 10, align = "left" },
+            --                 { "type",          zindex = 10, align = "left" },
+            --                 { "name",          zindex = 10 },
+            --             },
+            --         },
+            --     },
+            -- },
             commands = {},
             window = {
                 position = "bottom",
@@ -144,9 +179,10 @@ return {
                         local highlights = require("neo-tree.ui.highlights")
                         if not stat then return {} end
 
+                        local perm_width = 12
                         if node:get_depth() == 1 then
                             return {
-                                text = get_header(state, "Perm.", 8),
+                                text = get_header(state, "Permissions", perm_width),
                                 highlight = highlights.FILE_STATS_HEADER,
                             }
                         end
@@ -170,7 +206,9 @@ return {
                         end
 
                         return {
-                            text = format_permissions(stat.mode),
+                            text = vim.fn.printf("%" .. perm_width .. "s  ",
+                                truncate_string(format_permissions(stat.mode), perm_width)),
+                            -- text = format_permissions(stat.mode),
                             highlight = highlights.FILE_STATS,
                         }
                     end
@@ -178,11 +216,11 @@ return {
                 renderers = {
                     directory = {
                         { "permissions", zindex = 10 },
-                        -- {
-                        --     "type",
-                        --     zindex = 10,
-                        --     align = "left", -- Align to the left
-                        -- },
+                        {
+                            "type",
+                            zindex = 10,
+                            align = "left", -- Align to the left
+                        },
                         {
                             "file_size",
                             zindex = 20,
@@ -193,21 +231,19 @@ return {
                             format = "%d-%m %I:%M",
                             align = "left", -- Align to the right
                         },
-
                         { "indent" },
                         {
                             "name",
                             zindex = 20,
-                            align = "right"
                         }
                     },
                     file = {
                         { "permissions", zindex = 10 },
-                        -- {
-                        --     "type",
-                        --     zindex = 10,
-                        --     align = "left", -- Align to the left
-                        -- },
+                        {
+                            "type",
+                            zindex = 10,
+                            align = "left", -- Align to the left
+                        },
                         {
                             "file_size",
                             align = "left", -- Align to the right
@@ -220,7 +256,6 @@ return {
                         { "indent" },
                         {
                             "name",
-                            align = "right"
                         }
                     }
                 },
@@ -230,7 +265,7 @@ return {
                     hide_gitignored = false,
                     hide_hidden = false,
                 },
-                follow_current_file = { enabled = true, leave_dirs_open = true },
+                follow_current_file = { enabled = true, leave_dirs_open = false },
                 group_empty_dirs = false,
                 -- hijack_netrw_behavior = "disabled", -- to set "open_default"
                 hijack_netrw_behavior = "open_current", -- to set "open_default"
@@ -272,6 +307,24 @@ return {
                         print(args.source, " moved to ", args.destination)
                     end
                 },
+                -- {
+                --     event = "neo_tree_buffer_enter",
+                --     handler = function()
+                --         vim.cmd("highlight! Cursor blend=100")
+                --     end,
+                -- },
+                -- {
+                --     event = "neo_tree_buffer_leave",
+                --     handler = function()
+                --         vim.cmd("highlight! Cursor guibg=#5f87af blend=0")
+                --     end,
+                -- },
+                -- {
+                --     event = "file_opened",
+                --     handler = function()
+                --         require("neo-tree.sources.filesystem").reset_search()
+                --     end
+                -- },
             },
             buffers = {
                 follow_current_file = { enabled = true, leave_dirs_open = false },
