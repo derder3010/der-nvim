@@ -34,6 +34,7 @@ local conditions = {
 -- Config
 local config = {
     options = {
+        globalstatus = true,
         -- Disable sections and component separators
         component_separators = '',
         section_separators = '',
@@ -134,12 +135,6 @@ ins_left {
     padding = { right = 1 },
 }
 
-ins_left {
-    -- filesize component
-    'filesize',
-    cond = conditions.buffer_not_empty,
-}
-
 -- ins_left {
 --   'filename',
 --   cond = conditions.buffer_not_empty,
@@ -158,7 +153,7 @@ ins_left {
 ins_left {
     function()
         -- Get the full path and replace HOME with ~
-        local full_path = vim.fn.expand('%:p')
+        local full_path = vim.fn.expand('%:p:h')
         full_path = full_path:gsub(vim.env.HOME, "~")
 
         -- Check if the file is modified (unsaved changes)
@@ -167,15 +162,23 @@ ins_left {
         -- end
         return full_path
     end,
-    cond = conditions.buffer_not_empty,
-    color = function()
-        if vim.bo.modified then
-            return { fg = colors.red, gui = 'bold' }   -- Red for unsaved
-        else
-            return { fg = colors.green, gui = 'bold' } -- Green for saved
-        end
-    end,
+    -- cond = conditions.buffer_not_empty,
+    -- color = function()
+    --     if vim.bo.modified then
+    --         return { fg = colors.red, gui = 'bold' }   -- Red for unsaved
+    --     else
+    --         return { fg = colors.green, gui = 'bold' } -- Green for saved
+    --     end
+    -- end,
 }
+
+
+ins_left {
+    -- filesize component
+    'filesize',
+    cond = conditions.buffer_not_empty,
+}
+
 
 
 ins_left { 'location' }
@@ -203,11 +206,23 @@ ins_left {
 
 -- Insert mid section. You can make any number of sections in neovim :)
 -- for lualine it's any number greater then 2
--- ins_left {
---   function()
---     return '%='
---   end,
--- }
+ins_left {
+    function()
+        return '%='
+    end,
+}
+
+ins_left {
+    'filename',
+    cond = conditions.buffer_not_empty,
+    color = function()
+        if vim.bo.modified then
+            return { fg = colors.red, gui = 'bold' }   -- Red for unsaved
+        else
+            return { fg = colors.green, gui = 'bold' } -- Green for saved
+        end
+    end,
+}
 
 ins_right {
     function() return require("noice").api.status.command.get() end,
