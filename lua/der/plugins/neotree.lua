@@ -86,7 +86,7 @@ return {
                     },
                 },
                 file_size = { enabled = true, width = 12, required_width = 64 },
-                type = { enabled = true, width = 14, required_width = 122 },
+                type = { enabled = true, width = 10, required_width = 122 },
                 last_modified = {
                     enabled = true,
                     width = 20,
@@ -132,7 +132,18 @@ return {
                 mappings = {
                     ["<space>"] = { "toggle_node", nowait = false },
                     ["<2-LeftMouse>"] = "open",
-                    ["<cr>"] = "open",
+                    -- ["<cr>"] = "open",
+                    ["<cr>"] = function(state)
+                        local node = state.tree:get_node()
+
+                        if node.type == "directory" then
+                            -- If it's a directory, set it as the root
+                            require("neo-tree.sources.filesystem").navigate(state, node.id)
+                        else
+                            -- If it's a file, open it
+                            require("neo-tree.utils").open_file(state, node.path)
+                        end
+                    end,
                     ["<esc>"] = "cancel",
                     ["P"] = { "toggle_preview", config = { use_float = true, use_image_nvim = true } },
                     ["S"] = "open_split",
@@ -162,32 +173,32 @@ return {
             filesystem = {
                 components = {
                     permissions = function(config, node, state)
-                        local truncate_string = function(str, max_length)
-                            if #str <= max_length then
-                                return str
-                            end
-                            return str:sub(1, max_length - 1) .. "…"
-                        end
-
-                        local get_header = function(state, label, size)
-                            if state.sort and state.sort.label == label then
-                                local icon = state.sort.direction == 1 and "▲" or "▼"
-                                size = size - 2
-                                return vim.fn.printf("%" .. size .. "s %s  ", truncate_string(label, size), icon)
-                            end
-                            return vim.fn.printf("%" .. size .. "s  ", truncate_string(label, size))
-                        end
+                        -- local truncate_string = function(str, max_length)
+                        --     if #str <= max_length then
+                        --         return str
+                        --     end
+                        --     return str:sub(1, max_length - 1) .. "…"
+                        -- end
+                        --
+                        -- local get_header = function(state, label, size)
+                        --     if state.sort and state.sort.label == label then
+                        --         local icon = state.sort.direction == 1 and "▲" or "▼"
+                        --         size = size - 2
+                        --         return vim.fn.printf("%" .. size .. "s %s  ", truncate_string(label, size), icon)
+                        --     end
+                        --     return vim.fn.printf("%" .. size .. "s  ", truncate_string(label, size))
+                        -- end
                         local stat = vim.loop.fs_stat(node.path)
                         local highlights = require("neo-tree.ui.highlights")
                         if not stat then return {} end
 
                         local perm_width = 12
-                        if node:get_depth() == 1 then
-                            return {
-                                text = get_header(state, "Pers", perm_width),
-                                highlight = highlights.FILE_STATS_HEADER,
-                            }
-                        end
+                        -- if node:get_depth() == 1 then
+                        --     return {
+                        --         text = get_header(state, "Pers", perm_width),
+                        --         highlight = highlights.FILE_STATS_HEADER,
+                        --     }
+                        -- end
 
                         local function format_permissions(mode)
                             local owner = bit.band(bit.rshift(mode, 6), 7)
@@ -208,9 +219,9 @@ return {
                         end
 
                         return {
-                            text = vim.fn.printf("%" .. perm_width .. "s  ",
-                                truncate_string(format_permissions(stat.mode), perm_width)),
-                            -- text = format_permissions(stat.mode),
+                            -- text = vim.fn.printf("%" .. perm_width .. "s  ",
+                            --     truncate_string(format_permissions(stat.mode), perm_width)),
+                            text = format_permissions(stat.mode),
                             highlight = highlights.FILE_STATS,
                         }
                     end
@@ -219,19 +230,20 @@ return {
                     directory = {
                         { "permissions", zindex = 10 },
                         {
-                            "type",
-                            zindex = 10,
-                            align = "left", -- Align to the left
+                            "last_modified",
+                            format = "%d-%m %I:%M",
+                            align = "left", -- Align to the right
                         },
+
                         {
                             "file_size",
                             zindex = 20,
                             align = "left", -- Align to the right
                         },
                         {
-                            "last_modified",
-                            format = "%d-%m %I:%M",
-                            align = "left", -- Align to the right
+                            "type",
+                            zindex = 10,
+                            align = "left", -- Align to the left
                         },
                         { "indent" },
                         {
@@ -242,19 +254,19 @@ return {
                     file = {
                         { "permissions", zindex = 10 },
                         {
-                            "type",
-                            zindex = 10,
-                            align = "left", -- Align to the left
+                            "last_modified",
+                            align = "left", -- Align to the right
                         },
+
                         {
                             "file_size",
                             align = "left", -- Align to the right
                         },
                         {
-                            "last_modified",
-                            align = "left", -- Align to the right
+                            "type",
+                            zindex = 10,
+                            align = "left", -- Align to the left
                         },
-
                         { "indent" },
                         {
                             "name",
@@ -267,7 +279,7 @@ return {
                     hide_gitignored = false,
                     hide_hidden = false,
                 },
-                follow_current_file = { enabled = true, leave_dirs_open = false },
+                follow_current_file = { enabled = true, leave_dirs_open = true },
                 group_empty_dirs = false,
                 -- hijack_netrw_behavior = "disabled", -- to set "open_default"
                 hijack_netrw_behavior = "open_current", -- to set "open_default"
