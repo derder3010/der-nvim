@@ -38,38 +38,40 @@ vim.cmd("doautocmd ColorScheme")
 -- ]])
 
 require("markview").setup({
-    --- Time in miliseconds to wait before a redraw occurs(after any
-    --- of the redraw events).
-    ---
-    --- Redraw events are, cursorMoved, "ModeChanged", "TextChanged";
-    ---
-    --- Change this depending on your machine's power
-    ---@type integer
-    debounce = 50,
+    preview = {
+        --- Time in miliseconds to wait before a redraw occurs(after any
+        --- of the redraw events).
+        ---
+        --- Redraw events are, cursorMoved, "ModeChanged", "TextChanged";
+        ---
+        --- Change this depending on your machine's power
+        ---@type integer
+        debounce = 50,
 
-    --- Filetypes where the plugin is enabled
-    ---@type string[]
-    filetypes = { "markdown", "quarto", "rmd" },
+        --- Filetypes where the plugin is enabled
+        ---@type string[]
+        filetypes = { "markdown", "quarto", "rmd" },
 
-    --- Highlight groups to use.
-    --- Can be a list of tables that define the highlight groups.
-    ---@type "dynamic" | "light" | "dark" | table[]
-    highlight_groups = "dark",
+        --- Highlight groups to use.
+        --- Can be a list of tables that define the highlight groups.
+        ---@type "dynamic" | "light" | "dark" | table[]
+        highlight_groups = "dark",
 
-    hybrid_modes = nil,
+        hybrid_modes = nil,
 
-    injections = {
-        languages = {
-            markdown = {
-                enable = true,
-                --- This disables other
-                --- injected queries!
-                overwrite = true,
-                query = [[
+        injections = {
+            languages = {
+                markdown = {
+                    enable = true,
+                    --- This disables other
+                    --- injected queries!
+                    overwrite = true,
+                    query = [[
                     (section
                         (atx_headng) @injections.mkv.fold
                         (#set! @fold))
                 ]]
+                }
             }
         }
     }
