@@ -6,11 +6,11 @@ return {
         event = "InsertEnter",
         config = true
     },
-    { 'echasnovski/mini.starter', version = '*' },
+    { 'echasnovski/mini.nvim', version = '*' },
     {
         'nvim-lualine/lualine.nvim',
     },
-    { "RRethy/vim-illuminate",    event = "VeryLazy" },
+    { "RRethy/vim-illuminate", event = "VeryLazy" },
     -- {
     --     "dstein64/vim-startuptime",
     --     cmd = "StartupTime",
