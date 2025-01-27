@@ -38,7 +38,7 @@ vim.api.nvim_create_autocmd("DiagnosticChanged", {
 -- })
 
 
--- vim.loader.enable()
+vim.loader.enable()
 
 
 -- vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
