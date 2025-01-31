@@ -9,6 +9,15 @@ return {
     { 'echasnovski/mini.nvim', version = '*' },
     {
         'nvim-lualine/lualine.nvim',
+        event = "ColorScheme",
+        config = function()
+            require("lualine").setup({
+                options = {
+                    --- @usage 'rose-pine' | 'rose-pine-alt'
+                    theme = "rose-pine"
+                }
+            })
+        end
     },
     { "RRethy/vim-illuminate", event = "VeryLazy" },
     -- {

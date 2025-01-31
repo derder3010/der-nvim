@@ -106,42 +106,16 @@ return {
                 type = { enabled = true, width = 10, required_width = 122 },
                 last_modified = {
                     enabled = true,
-                    width = 18,
+                    width = 12,
                     required_width = 88,
-                    format = "%Y %b %d %H:%M"
+                    format = "%b %d %H:%M"
                 },
-                created = { enabled = false, width = 20, required_width = 110 },
+                created = { enabled = false, width = 15, required_width = 110 },
                 symlink_target = {
                     enabled = false,
                     text_format = " ➛ %s", -- %s will be replaced with the symlink target's path.
                 },
             },
-            -- renderers = {
-            --     directory = {
-            --         {
-            --             "container",
-            --             content = {
-            --                 { "last_modified", zindex = 10, align = "left" },
-            --                 { "created",       zindex = 10, align = "left" },
-            --                 { "file_size",     zindex = 10, align = "left" },
-            --                 { "type",          zindex = 10, align = "left" },
-            --                 { "name",          zindex = 10 },
-            --             },
-            --         },
-            --     },
-            --     file = {
-            --         {
-            --             "container",
-            --             content = {
-            --                 { "last_modified", zindex = 10, align = "left" },
-            --                 { "created",       zindex = 10, align = "left" },
-            --                 { "file_size",     zindex = 10, align = "left" },
-            --                 { "type",          zindex = 10, align = "left" },
-            --                 { "name",          zindex = 10 },
-            --             },
-            --         },
-            --     },
-            -- },
             commands = {},
             window = {
                 position = "bottom",
@@ -235,15 +209,12 @@ return {
                                 perm_string(owner) .. perm_string(group) .. perm_string(others) .. suffix)
                         end
 
-                        -- local owner = vim.fn.trim(vim.fn.system("id -nu " .. stat.uid))
-                        -- local group = vim.fn.trim(vim.fn.system("id -ng " .. stat.gid))
-
                         return {
-                            text = string.format("%s %d %s %s",
+                            text = string.format("%s %d %s",
                                 format_permissions(stat.mode),
                                 stat.nlink or 1, -- Number of hard links
-                                get_username(stat.uid),
-                                get_groupname(stat.gid) or stat.gid
+                                get_username(stat.uid)
+                            -- get_groupname(stat.gid) or "Unknown"
                             ),
                             -- text = format_permissions(stat.mode),
                             highlight = highlights.FILE_STATS,
@@ -258,11 +229,11 @@ return {
                             zindex = 20,
                             align = "left", -- Align to the right
                         },
-                        {
-                            "type",
-                            zindex = 10,
-                            align = "left", -- Align to the left
-                        },
+                        -- {
+                        --     "type",
+                        --     zindex = 10,
+                        --     align = "left", -- Align to the left
+                        -- },
                         {
                             "last_modified",
                             align = "left", -- Align to the right
@@ -279,11 +250,11 @@ return {
                             "file_size",
                             align = "left", -- Align to the right
                         },
-                        {
-                            "type",
-                            zindex = 10,
-                            align = "left", -- Align to the left
-                        },
+                        -- {
+                        --     "type",
+                        --     zindex = 10,
+                        --     align = "left", -- Align to the left
+                        -- },
                         {
                             "last_modified",
                             align = "left", -- Align to the right

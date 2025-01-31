@@ -174,7 +174,6 @@ ins_left {
 
 
 ins_left {
-    -- filesize component
     'filesize',
     cond = conditions.buffer_not_empty,
 }
@@ -184,8 +183,7 @@ ins_left {
 ins_left { 'location' }
 
 ins_left {
-    -- 'progress',
-    "progress",
+    'progress',
     fmt = function()
         return "%P/%L"
     end,
@@ -223,6 +221,21 @@ ins_left {
         end
     end,
 }
+-- ins_left {
+--     function()
+--         local fname = vim.fn.expand('%:t')
+--         local icon = vim.bo.modified and " " or ""
+--         return fname .. icon
+--     end,
+--     cond = conditions.buffer_not_empty,
+--     color = function()
+--         if vim.bo.modified then
+--             return { fg = colors.red, gui = 'bold' }
+--         else
+--             return { fg = colors.green, gui = 'bold' }
+--         end
+--     end,
+-- }
 
 ins_right {
     function() return require("noice").api.status.command.get() end,
@@ -241,16 +254,6 @@ ins_right {
     cond = require("lazy.status").has_updates,
     color = { fg = colors.red }
 }
-
-
-
-
-
-
-
-
-
-
 
 ins_right {
     -- Lsp server name .
