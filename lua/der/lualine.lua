@@ -3,17 +3,17 @@ local lualine = require('lualine')
 -- Color table for highlights
 -- stylua: ignore
 local colors = {
-    bg       = '',
-    fg       = '#bbc2cf',
-    yellow   = '#ECBE7B',
-    cyan     = '#008080',
-    darkblue = '#081633',
+    bg       = '#232136',
+    fg       = '#908caa',
+    yellow   = '#f6c177',
+    cyan     = '#9ccfd8',
+    darkblue = '#3e8fb0',
     green    = '#98be65',
-    orange   = '#FF8800',
-    violet   = '#a9a1e1',
+    orange   = '#ea9a97',
+    violet   = '#c4a7e7',
     magenta  = '#c678dd',
     blue     = '#51afef',
-    red      = '#ec5f67',
+    red      = '#eb6f92',
     tp       = ''
 }
 
@@ -215,9 +215,9 @@ ins_left {
     cond = conditions.buffer_not_empty,
     color = function()
         if vim.bo.modified then
-            return { fg = colors.red, gui = 'bold' }   -- Red for unsaved
+            return { fg = colors.red, gui = 'bold' }      -- Red for unsaved
         else
-            return { fg = colors.green, gui = 'bold' } -- Green for saved
+            return { fg = colors.darkblue, gui = 'bold' } -- Green for saved
         end
     end,
 }
@@ -258,7 +258,7 @@ ins_right {
 ins_right {
     -- Lsp server name .
     function()
-        local msg = 'No Active Lsp'
+        local msg = ''
         local buf_ft = vim.api.nvim_get_option_value('filetype', { buf = 0 })
         local clients = vim.lsp.get_clients()
         if next(clients) == nil then
@@ -282,7 +282,7 @@ ins_right {
     end,
     -- icon = ' LSP:',
     -- icon = 'LSP:',
-    color = { fg = colors.magenta, gui = 'bold' },
+    color = { fg = colors.orange, gui = 'bold' },
 }
 
 ins_right {

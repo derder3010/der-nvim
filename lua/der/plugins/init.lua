@@ -20,18 +20,6 @@ return {
         end
     },
     { "RRethy/vim-illuminate", event = "VeryLazy" },
-    -- {
-    --     "dstein64/vim-startuptime",
-    --     cmd = "StartupTime",
-    --     config = function()
-    --         vim.g.startuptime_tries = 10
-    --     end,
-    -- }
-
-    {
-        'https://codeberg.org/esensar/nvim-dev-container',
-        dependencies = 'nvim-treesitter/nvim-treesitter'
-    },
     'psliwka/vim-smoothie',
     'windwp/nvim-ts-autotag',
     "nmac427/guess-indent.nvim",
