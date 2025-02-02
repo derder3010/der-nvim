@@ -117,3 +117,13 @@ starter.setup({
         starter.gen_hook.aligning('center', 'center'),
     },
 })
+
+require('nvim-ts-autotag').setup({
+    aliases = {
+        ["tsx"] = "html",
+    }
+})
+
+require('guess-indent').setup {
+    override_editorconfig = true, -- Set to true to override settings set by .editorconfig
+}

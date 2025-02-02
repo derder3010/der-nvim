@@ -77,13 +77,13 @@ local function ins_right(component)
     table.insert(config.sections.lualine_x, component)
 end
 
-ins_left {
-    function()
-        return '~'
-    end,
-    -- color = { fg = colors.bg }, -- Sets highlighting of component
-    padding = { left = 0, right = 1 }, -- We don't need space before this
-}
+-- ins_left {
+--     function()
+--         return '['
+--     end,
+--     -- color = { fg = colors.bg }, -- Sets highlighting of component
+--     -- padding = { left = 0, right = 1 }, -- We don't need space before this
+-- }
 
 ins_left {
     -- mode component
@@ -275,26 +275,36 @@ ins_right {
         end
         -- return msg
         if #active_client > 0 then
-            return table.concat(active_client, ', ')
+            return "[" .. table.concat(active_client, ', ') .. "]"
         else
             return msg
         end
     end,
     -- icon = ' LSP:',
-    icon = 'LSP:',
+    -- icon = 'LSP:',
     color = { fg = colors.magenta, gui = 'bold' },
 }
 
--- Add components to right sections
 ins_right {
-    'o:encoding',       -- option component same as &encoding in viml
-    fmt = string.upper, -- I'm not sure why it's upper case either ;)
-    cond = conditions.hide_in_width,
-    color = { fg = colors.green, gui = 'bold' },
+    function()
+        local indent = vim.api.nvim_get_option_value("shiftwidth", {})
+        local is_spaces = vim.api.nvim_get_option_value("expandtab", {}) and "spaces" or "tabs"
+        return string.format("->|%d %s", indent, is_spaces)
+    end,
+    -- icon = "",
+    cond = conditions.buffer_not_empty,
 }
 
+-- Add components to right sections
+-- ins_right {
+--     'o:encoding',       -- option component same as &encoding in viml
+--     fmt = string.upper, -- I'm not sure why it's upper case either ;)
+--     cond = conditions.hide_in_width,
+--     color = { fg = colors.green, gui = 'bold' },
+-- }
+
 ins_right {
-    'fileformat',
+    'filetype',
     fmt = string.upper,
     icons_enabled = false, -- I think icons are cool but Eviline doesn't have them. sigh
     color = { fg = colors.green, gui = 'bold' },
@@ -323,13 +333,13 @@ ins_right {
     cond = conditions.hide_in_width,
 }
 
-ins_right {
-    function()
-        return ''
-    end,
-    -- color = { fg = colors.bg },
-    padding = { left = 1 },
-}
+-- ins_right {
+--     function()
+--         return ']'
+--     end,
+--     -- color = { fg = colors.bg },
+--     padding = { left = 0 },
+-- }
 
 -- Now don't forget to initialize lualine
 lualine.setup(config)

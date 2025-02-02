@@ -33,4 +33,6 @@ return {
         dependencies = 'nvim-treesitter/nvim-treesitter'
     },
     'psliwka/vim-smoothie',
+    'windwp/nvim-ts-autotag',
+    "nmac427/guess-indent.nvim",
 }
