@@ -2,7 +2,7 @@ vim.opt.number = true
 vim.opt.relativenumber = true
 vim.opt.numberwidth = 1
 -- Disable guicursor to make the cursor a block in all modes
-vim.opt.guicursor = ""
+-- vim.opt.guicursor = ""
 
 
 vim.opt.mouse = "a"
@@ -79,3 +79,16 @@ vim.opt.foldenable = false
 
 vim.opt.updatetime = 100
 vim.g.skip_ts_context_commentstring_module = true
+
+
+-- vim.opt.list = true
+-- vim.opt.listchars = {
+-- 	space = "·",
+-- 	tab = "..",
+-- 	-- trail = "·",
+-- 	-- extends = "→",
+-- 	-- precedes = "←",
+-- 	-- eol = "↲"
+-- }
+vim.api.nvim_set_hl(0, "Whitespace", { fg = "#4C566A", bg = "NONE", nocombine = true })
+vim.api.nvim_set_hl(0, "NonText", { fg = "#4C566A", bg = "NONE", nocombine = true })
