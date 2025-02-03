@@ -75,3 +75,7 @@ vim.opt.runtimepath:remove("/usr/share/vim/vimfiles") -- separate vim plugins fr
 vim.opt.foldenable = false
 -- provided by rust-analyzer.
 -- vim.g.lazyvim_rust_diagnostics = "rust-analyzer"
+
+
+vim.opt.updatetime = 100
+vim.g.skip_ts_context_commentstring_module = true

@@ -83,9 +83,19 @@ require("conform").setup({
 })
 
 
-require('nvim-treesitter.configs').setup {
-	ensure_installed = { "jsonc" }
+require('nvim-treesitter.configs').setup({
+	ensure_installed = { 'typescript', 'tsx', 'jsonc' },
+	highlight = { enable = true },
+	-- context_commentstring = { enable = true, enable_autocmd = false },
+})
+
+require('ts_context_commentstring').setup {
+	enable_autocmd = false, -- Manual control, let Comment.nvim handle it
 }
+
+require('Comment').setup({
+	pre_hook = require('ts_context_commentstring.integrations.comment_nvim').create_pre_hook(),
+})
 
 local starter = require('mini.starter')
 starter.setup({

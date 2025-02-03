@@ -23,7 +23,7 @@ vim.api.nvim_create_autocmd("FileType", {
 	pattern = { "go", "make", "haskell", "rust", "lua", "c", "cpp", "swift", "kotlin" },
 	callback = function()
 		vim.opt.expandtab = false -- Use real tabs
-		vim.opt.tabstop = 2 -- A tab represents 4 spaces (this can vary per language)
-		vim.opt.shiftwidth = 2 -- Indentation width with tabs
+		vim.opt.tabstop = 2     -- A tab represents 4 spaces (this can vary per language)
+		vim.opt.shiftwidth = 2  -- Indentation width with tabs
 	end
 })

@@ -23,4 +23,12 @@ return {
     'psliwka/vim-smoothie',
     'windwp/nvim-ts-autotag',
     "nmac427/guess-indent.nvim",
+    -- lazy.nvim example
+    {
+        "JoosepAlviste/nvim-ts-context-commentstring",
+        lazy = false
+    },
+    {
+        'numToStr/Comment.nvim',
+    }
 }
