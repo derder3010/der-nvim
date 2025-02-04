@@ -42,8 +42,8 @@ local config = {
             -- We are going to use lualine_c an lualine_x as left and
             -- right section. Both are highlighted by c theme .  So we
             -- are just setting default looks o statusline
-            normal = { c = { fg = colors.fg, bg = colors.bg } },
-            inactive = { c = { fg = colors.fg, bg = colors.bg } },
+            normal = { c = { fg = colors.fg, bg = colors.tp } },
+            inactive = { c = { fg = colors.fg, bg = colors.tp } },
         },
     },
     sections = {
@@ -162,7 +162,8 @@ ins_left {
         -- end
         return full_path
     end,
-    -- cond = conditions.buffer_not_empty,
+    cond = conditions.buffer_not_empty,
+    color = { fg = colors.violet }
     -- color = function()
     --     if vim.bo.modified then
     --         return { fg = colors.red, gui = 'bold' }   -- Red for unsaved
@@ -176,6 +177,8 @@ ins_left {
 ins_left {
     'filesize',
     cond = conditions.buffer_not_empty,
+    color = { fg = colors.magenta, gui = 'bold' }
+
 }
 
 
@@ -187,7 +190,7 @@ ins_left {
     fmt = function()
         return "%P/%L"
     end,
-    color = { fg = colors.fg, gui = 'bold' }
+    color = { fg = colors.orange, gui = 'bold' }
 }
 
 ins_left {
@@ -215,9 +218,9 @@ ins_left {
     cond = conditions.buffer_not_empty,
     color = function()
         if vim.bo.modified then
-            return { fg = colors.red, gui = 'bold' }      -- Red for unsaved
+            return { fg = colors.red, bg = colors.bg, gui = 'bold' }      -- Red for unsaved
         else
-            return { fg = colors.darkblue, gui = 'bold' } -- Green for saved
+            return { fg = colors.darkblue, bg = colors.bg, gui = 'bold' } -- Green for saved
         end
     end,
 }
@@ -255,35 +258,60 @@ ins_right {
     color = { fg = colors.red }
 }
 
+-- ins_right {
+--     -- Lsp server name .
+--     function()
+--         local msg = ''
+--         local buf_ft = vim.api.nvim_get_option_value('filetype', { buf = 0 })
+--         local clients = vim.lsp.get_clients()
+--         if next(clients) == nil then
+--             return msg
+--         end
+--
+--         local active_client = {}
+--         for _, client in ipairs(clients) do
+--             local filetypes = client.config.filetypes
+--             if filetypes and vim.fn.index(filetypes, buf_ft) ~= -1 then
+--                 -- return client.name
+--                 table.insert(active_client, client.name)
+--             end
+--         end
+--         -- return msg
+--         if #active_client > 0 then
+--             return "[" .. table.concat(active_client, ', ') .. "]"
+--         else
+--             return msg
+--         end
+--     end,
+--     -- icon = ' LSP:',
+--     -- icon = 'LSP:',
+--     color = { fg = colors.orange, gui = 'bold' },
+-- }
+
 ins_right {
-    -- Lsp server name .
     function()
-        local msg = ''
-        local buf_ft = vim.api.nvim_get_option_value('filetype', { buf = 0 })
-        local clients = vim.lsp.get_clients()
-        if next(clients) == nil then
-            return msg
+        local bufnr = vim.api.nvim_get_current_buf()
+        local clients = vim.lsp.get_clients({ bufnr = bufnr }) -- Only clients for the current buffer
+
+        if not clients or #clients == 0 then
+            return ""
         end
 
-        local active_client = {}
-        for _, client in ipairs(clients) do
-            local filetypes = client.config.filetypes
-            if filetypes and vim.fn.index(filetypes, buf_ft) ~= -1 then
-                -- return client.name
-                table.insert(active_client, client.name)
-            end
+        local max_lsp = 2 -- Set the max LSPs to display
+        local client_names = vim.tbl_map(function(client)
+            return client.name
+        end, clients)
+
+        if #client_names > max_lsp then
+            client_names = { unpack(client_names, 1, max_lsp) }
+            table.insert(client_names, "...") -- Indicate truncation
         end
-        -- return msg
-        if #active_client > 0 then
-            return "[" .. table.concat(active_client, ', ') .. "]"
-        else
-            return msg
-        end
+
+        return "[" .. table.concat(client_names, ", ") .. "]"
     end,
-    -- icon = ' LSP:',
-    -- icon = 'LSP:',
     color = { fg = colors.orange, gui = 'bold' },
 }
+
 
 ins_right {
     function()
@@ -305,9 +333,9 @@ ins_right {
 
 ins_right {
     'filetype',
-    fmt = string.upper,
+    -- fmt = string.upper,
     icons_enabled = false, -- I think icons are cool but Eviline doesn't have them. sigh
-    color = { fg = colors.green, gui = 'bold' },
+    color = { fg = colors.magenta, gui = 'bold' },
 }
 
 ins_right {

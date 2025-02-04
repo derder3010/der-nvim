@@ -14,14 +14,14 @@ vim.cmd("colorscheme rose-pine-moon")
 -- neonhive, breakingbad, batman, ironman_dark, cody, cold, matrix, darkmatrix, nordic-aurora, superman, topology
 -- vim.cmd("colorscheme batman")
 -- vim.cmd("colorscheme gruber-darker")
--- vim.cmd("au ColorScheme * hi Normal ctermbg=none guibg=none")
--- vim.cmd("au ColorScheme * hi NormalFloat ctermbg=none guibg=none")
--- vim.cmd("au ColorScheme * hi SignColumn ctermbg=none guibg=none")
--- vim.cmd("au ColorScheme * hi NormalNC ctermbg=none guibg=none")
--- vim.cmd("au ColorScheme * hi MsgArea ctermbg=none guibg=none")
--- vim.cmd("au ColorScheme * hi TelescopeBorder ctermbg=none guibg=none")
--- vim.cmd("au ColorScheme * hi NvimTreeNormal ctermbg=none guibg=none")
--- vim.cmd("doautocmd ColorScheme")
+vim.cmd("au ColorScheme * hi Normal ctermbg=none guibg=none")
+vim.cmd("au ColorScheme * hi NormalFloat ctermbg=none guibg=none")
+vim.cmd("au ColorScheme * hi SignColumn ctermbg=none guibg=none")
+vim.cmd("au ColorScheme * hi NormalNC ctermbg=none guibg=none")
+vim.cmd("au ColorScheme * hi MsgArea ctermbg=none guibg=none")
+vim.cmd("au ColorScheme * hi TelescopeBorder ctermbg=none guibg=none")
+vim.cmd("au ColorScheme * hi NvimTreeNormal ctermbg=none guibg=none")
+vim.cmd("doautocmd ColorScheme")
 -- vim.o.background = "dark"
 -- vim.o.termguicolors = true
 
