@@ -7,7 +7,7 @@ vim.g.mapleader = " "
 -- vim.keymap.set("n", "<leader><space>", "<cmd>lua require('fzf-lua').files({ cwd = vim.fn.expand('%:p:h') })<CR>",
 --     { noremap = true, silent = true })
 vim.keymap.set("n", "<leader>f", "<cmd>lua require('fzf-lua').live_grep()<CR>", { noremap = true, silent = true })
-
+vim.keymap.set("n", "<leader><space>", "<cmd>FzfLua files<cr>", { desc = "Find Files (Bottom)" })
 -- vim.keymap.set("n", "<leader><space>", ":Telescope file_browser<CR>")
 -- vim.keymap.set("n", "<leader>e", "<cmd>Neotree bottom reveal_force_cwd<cr>")
 vim.cmd([[nnoremap  \ :Neotree current<cr>]])
@@ -46,8 +46,8 @@ vim.keymap.set("n", "<tab>", '<cmd>BufferLineCycleNext<CR>')
 vim.keymap.set("n", "<C-w>", function()
     Snacks.bufdelete()
 end)
-vim.keymap.set("n", "<leader>A", '<cmd>SupermavenRestart<CR>')
-vim.keymap.set("n", "<leader>S", '<cmd>SupermavenRestop<CR>')
+-- vim.keymap.set("n", "<leader>A", '<cmd>SupermavenRestart<CR>')
+-- vim.keymap.set("n", "<leader>S", '<cmd>SupermavenRestop<CR>')
 
 vim.keymap.set("n", "<leader>n", '<cmd>Noice history<CR>')
 vim.keymap.set("n", "<leader>q", '<cmd>copen<CR>')

@@ -3,7 +3,6 @@ require("der.lazy_init")
 require("der.set")
 require("der.lualine")
 require("der.cmd")
-
 require('scrollview').setup()
 
 -- ColorScheme
@@ -129,5 +128,38 @@ require("rose-pine").setup({
 	highlight_groups = {
 		StatusLine = { fg = "love", bg = "love", blend = 10 },
 		StatusLineNC = { fg = "subtle", bg = "surface" },
+	},
+})
+
+
+
+
+
+require("fzf-lua").setup({
+	winopts = {
+		height = 0.3,                  -- Small height, like Doom Emacs
+		width = 1,                     -- Full width
+		row = 1,                       -- Align to bottom
+		col = 0.5,                     -- Center horizontally
+		preview = { hidden = "hidden" }, -- Disable preview
+		border = "none",
+	},
+	fzf_opts = {
+		["--no-scrollbar"] = true, -- Optional: Hide scrollbar like Doom Emacs
+	},
+
+	-- Keybindings
+	files = {
+		cwd_prompt = true,
+		actions = {
+			["alt-i"] = require("fzf-lua").actions.toggle_ignore,
+			["alt-h"] = require("fzf-lua").actions.toggle_hidden,
+			["left"] = function(_, opts)                    -- Move to parent dir on backspace
+				local parent = vim.fn.fnamemodify(opts.cwd, ":h") -- Get parent dir
+				require("fzf-lua").files({ cwd = parent })
+			end,
+
+		},
+		fd_opts = "--hidden --no-ignore", -- Show hidden & dotfiles
 	},
 })

@@ -84,41 +84,60 @@ return {
         },
     },
     keys = {
-        { "<leader>ff", function() Snacks.picker.smart() end,   desc = "Smart Find Files" },
-        { "<leader>b",  function() Snacks.picker.buffers() end, desc = "Buffers" },
-        {
-            "<leader><space>",
-            function()
-                Snacks.picker.files({
-                    icons = {
-                        files = {
-                            enabled = false, -- show file icons
-                        },
-                    },
-                    layout = {
-                        preview = false,
-                        preset = "vertical",
-                        layout = {
-                            backdrop = false,
-                            min_width = 80,
-                            height = 0.4,
-                            min_height = 3,
-                            box = "vertical",
-                            position = "bottom",
-                            border = "none",
-                        }
-                    }
-
-                })
-            end,
-            desc = "Find Files"
-        },
+        -- { "<leader>ff", function() Snacks.picker.files() end,   desc = "Smart Find Files" },
+        -- { "<leader>b",  function() Snacks.picker.buffers() end, desc = "Buffers" },
+        -- {
+        --     "<leader><space>",
+        --     function()
+        --         Snacks.picker.smart({
+        --             ui_select = false,
+        --             sort = { fields = { "sort" } },
+        --             supports_live = true,
+        --             watch = true,
+        --             icons = {
+        --                 files = {
+        --                     enabled = false, -- show file icons
+        --                 },
+        --             },
+        --             layout = {
+        --                 preview = false,
+        --                 preset = "vertical",
+        --                 layout = {
+        --                     backdrop = false,
+        --                     min_width = 80,
+        --                     height = 0.4,
+        --                     min_height = 3,
+        --                     box = "vertical",
+        --                     position = "bottom",
+        --                     border = "none",
+        --                 }
+        --             },
+        --             formatters = {
+        --                 file = {
+        --                     filename_only = false,
+        --                     format = function(file)
+        --                         local stat = vim.loop.fs_stat(file.path)
+        --                         if not stat then return file.filename end
+        --
+        --                         local size = stat.size
+        --                         local mode = stat.mode                        -- Get file permissions
+        --                         local perms = string.format("%o", mode % 512) -- Convert to octal permissions
+        --
+        --                         return string.format("%s %10d %s", perms, size, file.filename)
+        --                     end,
+        --                 }
+        --             }
+        --         })
+        --     end,
+        --     desc = "Find Files"
+        -- },
         { "<leader>p", function() Snacks.picker.projects() end, desc = "Projects" },
         { "<leader>f", function() Snacks.picker.grep() end,     desc = "Grep" },
         {
             "<leader>e",
             function()
                 Snacks.explorer({
+                    ui_select = false,
                     finder = "explorer",
                     sort = { fields = { "sort" } },
                     supports_live = true,
@@ -132,7 +151,19 @@ return {
                     focus = "list",
                     auto_close = false,
                     jump = { close = false },
-                    layout = { preset = "sidebar", preview = false },
+                    layout = {
+                        preset = "vscode",
+                        preview = false,
+                        layout = {
+                            backdrop = false,
+                            row = 1,
+                            width = 0.15,
+                            position = "left",
+                            border = "none",
+                            box = "vertical",
+                        },
+                    }
+                    ,
                     formatters = {
                         file = { filename_only = true },
                         severity = { pos = "right" },
@@ -145,7 +176,7 @@ return {
                                 ["l"] = "confirm",
                                 ["h"] = "explorer_close",
                                 ["a"] = "explorer_add",
-                                ["d"] = "explorer_del",
+                                ["D"] = "explorer_del",
                                 ["r"] = "explorer_rename",
                                 ["c"] = "explorer_copy",
                                 ["m"] = "explorer_move",
