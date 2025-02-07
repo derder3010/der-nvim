@@ -3,8 +3,13 @@ vim.g.mapleader = " "
 -- vim.cmd([[nnoremap \ :Ex<cr>]])
 -- vim.keymap.set("n", "<leader><space>", "<cmd>Neotree bottom<cr>")
 -- vim.keymap.set("n", "<leader>e", "<cmd>Neotree left reveal_force_cwd<cr>")
-vim.keymap.set("n", "<leader><space>", ":Telescope file_browser path=%:p:h select_buffer=true<CR>")
-vim.keymap.set("n", "<leader>e", "<cmd>Neotree bottom reveal_force_cwd<cr>")
+-- vim.keymap.set("n", "<leader><space>", ":Telescope file_browser path=%:p:h select_buffer=true<CR>")
+-- vim.keymap.set("n", "<leader><space>", "<cmd>lua require('fzf-lua').files({ cwd = vim.fn.expand('%:p:h') })<CR>",
+--     { noremap = true, silent = true })
+vim.keymap.set("n", "<leader>f", "<cmd>lua require('fzf-lua').live_grep()<CR>", { noremap = true, silent = true })
+
+-- vim.keymap.set("n", "<leader><space>", ":Telescope file_browser<CR>")
+-- vim.keymap.set("n", "<leader>e", "<cmd>Neotree bottom reveal_force_cwd<cr>")
 vim.cmd([[nnoremap  \ :Neotree current<cr>]])
 vim.keymap.set("n", "<leader>l", "<cmd>Lazy<cr>")
 vim.keymap.set("n", "<leader>m", "<cmd>Mason<cr>")

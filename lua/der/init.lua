@@ -25,6 +25,7 @@ vim.cmd("doautocmd ColorScheme")
 -- vim.o.background = "dark"
 -- vim.o.termguicolors = true
 
+-- require('telescope').load_extension('fzf')
 require("markview").setup({
 	preview = {
 		--- Time in miliseconds to wait before a redraw occurs(after any

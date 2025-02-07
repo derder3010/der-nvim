@@ -3,6 +3,29 @@ return {
     priority = 1000,
     lazy = false,
     opts = {
+        picker = {
+            -- icons = {
+            --     files = {
+            --         enabled = false, -- show file icons
+            --     },
+            -- },
+            -- layout = {
+            --     preview = false,
+            --     preset = "vertical",
+            --     layout = {
+            --         backdrop = false,
+            --         min_width = 80,
+            --         height = 0.4,
+            --         min_height = 3,
+            --         box = "vertical",
+            --         position = "bottom",
+            --         border = "none",
+            --     }
+            -- }
+        },
+        explorer = {
+            replace_netrw = false,
+        },
         bigfile = {
             enabled = true
         },
@@ -16,18 +39,18 @@ return {
             only_current = false, -- only show indent guides in the current window
             hl = "SnacksIndent", ---@type string|string[] hl groups for indent guides
         },
-        animate = {
-            enabled = false,
-        },
         -- animate = {
-        --     enabled = vim.fn.has("nvim-0.10") == 1,
-        --     style = "out",
-        --     easing = "linear",
-        --     duration = {
-        --       step = 20, -- ms per step
-        --       total = 500, -- maximum duration
-        --     },
-        --   },
+        --     enabled = false,
+        -- },
+        animate = {
+            enabled = vim.fn.has("nvim-0.10") == 1,
+            style = "out",
+            easing = "linear",
+            duration = {
+                step = 20,   -- ms per step
+                total = 500, -- maximum duration
+            },
+        },
         scope = {
             enabled = false, -- enable highlighting the current scope
             priority = 200,
@@ -55,9 +78,100 @@ return {
             },
         },
         blank = {
-            char = " ",
-            -- char = "·",
+            -- char = " ",
+            char = "·",
             hl = "SnacksIndentBlank", ---@type string|string[] hl group for blank spaces
+        },
+    },
+    keys = {
+        { "<leader>ff", function() Snacks.picker.smart() end,   desc = "Smart Find Files" },
+        { "<leader>b",  function() Snacks.picker.buffers() end, desc = "Buffers" },
+        {
+            "<leader><space>",
+            function()
+                Snacks.picker.files({
+                    icons = {
+                        files = {
+                            enabled = false, -- show file icons
+                        },
+                    },
+                    layout = {
+                        preview = false,
+                        preset = "vertical",
+                        layout = {
+                            backdrop = false,
+                            min_width = 80,
+                            height = 0.4,
+                            min_height = 3,
+                            box = "vertical",
+                            position = "bottom",
+                            border = "none",
+                        }
+                    }
+
+                })
+            end,
+            desc = "Find Files"
+        },
+        { "<leader>p", function() Snacks.picker.projects() end, desc = "Projects" },
+        { "<leader>f", function() Snacks.picker.grep() end,     desc = "Grep" },
+        {
+            "<leader>e",
+            function()
+                Snacks.explorer({
+                    finder = "explorer",
+                    sort = { fields = { "sort" } },
+                    supports_live = true,
+                    tree = true,
+                    watch = true,
+                    diagnostics = true,
+                    diagnostics_open = false,
+                    git_status = true,
+                    git_status_open = false,
+                    follow_file = true,
+                    focus = "list",
+                    auto_close = false,
+                    jump = { close = false },
+                    layout = { preset = "sidebar", preview = false },
+                    formatters = {
+                        file = { filename_only = true },
+                        severity = { pos = "right" },
+                    },
+                    matcher = { sort_empty = false, fuzzy = false },
+                    win = {
+                        list = {
+                            keys = {
+                                ["<BS>"] = "explorer_up",
+                                ["l"] = "confirm",
+                                ["h"] = "explorer_close",
+                                ["a"] = "explorer_add",
+                                ["d"] = "explorer_del",
+                                ["r"] = "explorer_rename",
+                                ["c"] = "explorer_copy",
+                                ["m"] = "explorer_move",
+                                ["o"] = "explorer_open",
+                                ["P"] = "toggle_preview",
+                                ["y"] = "explorer_yank",
+                                ["u"] = "explorer_update",
+                                ["<c-c>"] = "tcd",
+                                ["."] = "explorer_focus",
+                                ["I"] = "toggle_ignored",
+                                ["H"] = "toggle_hidden",
+                                ["Z"] = "explorer_close_all",
+                                ["]g"] = "explorer_git_next",
+                                ["[g"] = "explorer_git_prev",
+                                ["]d"] = "explorer_diagnostic_next",
+                                ["[d"] = "explorer_diagnostic_prev",
+                                ["]w"] = "explorer_warn_next",
+                                ["[w"] = "explorer_warn_prev",
+                                ["]e"] = "explorer_error_next",
+                                ["[e"] = "explorer_error_prev",
+                            },
+                        },
+                    },
+                })
+            end,
+            desc = "File Explorer"
         },
     }
 }

@@ -177,7 +177,7 @@ ins_left {
 ins_left {
     'filesize',
     cond = conditions.buffer_not_empty,
-    color = { fg = colors.magenta, gui = 'bold' }
+    color = { fg = colors.magenta }
 
 }
 
@@ -190,7 +190,8 @@ ins_left {
     fmt = function()
         return "%P/%L"
     end,
-    color = { fg = colors.orange, gui = 'bold' }
+    -- color = { fg = colors.orange, gui = 'bold' }
+    color = { fg = colors.orange }
 }
 
 ins_left {
@@ -218,9 +219,9 @@ ins_left {
     cond = conditions.buffer_not_empty,
     color = function()
         if vim.bo.modified then
-            return { fg = colors.red, bg = colors.bg, gui = 'bold' }      -- Red for unsaved
+            return { fg = colors.red }      -- Red for unsaved
         else
-            return { fg = colors.darkblue, bg = colors.bg, gui = 'bold' } -- Green for saved
+            return { fg = colors.darkblue } -- Green for saved
         end
     end,
 }
@@ -309,7 +310,8 @@ ins_right {
 
         return "[" .. table.concat(client_names, ", ") .. "]"
     end,
-    color = { fg = colors.orange, gui = 'bold' },
+    -- color = { fg = colors.orange, gui = 'bold' },
+    color = { fg = colors.orange },
 }
 
 
@@ -335,7 +337,8 @@ ins_right {
     'filetype',
     -- fmt = string.upper,
     icons_enabled = false, -- I think icons are cool but Eviline doesn't have them. sigh
-    color = { fg = colors.magenta, gui = 'bold' },
+    -- color = { fg = colors.magenta, gui = 'bold' },
+    color = { fg = colors.magenta },
 }
 
 ins_right {
@@ -345,7 +348,8 @@ ins_right {
     end,
     -- icon = '',
     icon = '',
-    color = { fg = colors.violet, gui = 'bold' },
+    -- color = { fg = colors.violet, gui = 'bold' },
+    color = { fg = colors.violet },
 }
 
 ins_right {
